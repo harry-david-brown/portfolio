@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mara Solis — Variable</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  /* ── stage ───────────────────────────────────────────────────── */
+  .stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5.5rem 2.5rem 4rem;
+  }
+
+  /* ── painting wrapper ────────────────────────────────────────── */
+  .painting-wrap {
+    position: relative;
+    /* w/h set by JS */
+    cursor: none;
+  }
+
+  .painting {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: opacity .55s ease;
+  }
+
+  /* fade during transition */
+  .painting.transitioning { opacity: 0; }
+
+  /* ── metadata ────────────────────────────────────────────────── */
+  .meta {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    /* width matched to painting by JS */
+    transition: opacity .55s ease;
+  }
+  .meta.transitioning { opacity: 0; }
+
+  .meta-left {}
+  .meta-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.05rem;
+  }
+  .meta-detail {
+    margin-top: .2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .08em;
+    color: var(--stone);
+  }
+  .meta-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .1em;
+    color: var(--stone);
+    flex-shrink: 0;
+  }
+
+  /* ── custom cursor ───────────────────────────────────────────── */
+  #cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  #cursor.visible { opacity: 1; }
+  #cursor svg { display: block; }
+
+  /* ── hint ────────────────────────────────────────────────────── */
+  .hint {
+    position: fixed;
+    bottom: 2rem;
+    left: 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--stone);
+    opacity: .5;
+    pointer-events: none;
+    transition: opacity .6s;
+  }
+  .hint.gone { opacity: 0; }
+
+  /* ── end state ───────────────────────────────────────────────── */
+  .finished {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s ease;
+  }
+  .finished.visible { opacity: 1; pointer-events: auto; }
+  .finished h2 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+  .finished a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: .2rem;
+    color: var(--stone);
+    cursor: pointer;
+  }
+  .finished a:hover { color: var(--ink); border-color: var(--ink); }
+
+  @media (hover: none) {
+    body { cursor: auto; }
+    #cursor { display: none; }
+    .painting-wrap { cursor: pointer; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-name">Mara Solis</a>
+  <div class="nav-right">
+    <span class="nav-mode">04 — Variable</span>
+    <a href="index.html">← All modes</a>
+  </div>
+</nav>
+
+<div class="stage" id="stage">
+  <div class="painting-wrap" id="paintingWrap">
+    <div class="painting" id="painting"></div>
+  </div>
+  <div class="meta" id="meta">
+    <div class="meta-left">
+      <div class="meta-title" id="metaTitle"></div>
+      <div class="meta-detail" id="metaDetail"></div>
+    </div>
+    <div class="meta-counter" id="metaCounter"></div>
+  </div>
+</div>
+
+<div class="finished" id="finished">
+  <h2>End of works.</h2>
+  <a id="restartBtn">Start again</a>
+</div>
+
+<div class="hint" id="hint">Click the painting to continue</div>
+
+<div id="cursor">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="14" cy="14" r="13" stroke="#131210" stroke-width="1"/>
+    <line x1="8" y1="14" x2="20" y2="14" stroke="#131210" stroke-width="1.5"/>
+    <polyline points="15,9 20,14 15,19" stroke="#131210" stroke-width="1.5" fill="none"/>
+  </svg>
+</div>
+
+<script src="paintings.js"></script>
+<script>
+  let current = 0;
+  let hintGone = false;
+  let isTransitioning = false;
+
+  const wrap    = document.getElementById('paintingWrap');
+  const painting= document.getElementById('painting');
+  const meta    = document.getElementById('meta');
+  const title   = document.getElementById('metaTitle');
+  const detail  = document.getElementById('metaDetail');
+  const ctr     = document.getElementById('metaCounter');
+  const finished= document.getElementById('finished');
+  const hint    = document.getElementById('hint');
+  const cursor  = document.getElementById('cursor');
+  const stage   = document.getElementById('stage');
+
+  const PADDING_TOP    = 88; // px — nav + padding
+  const PADDING_BOTTOM = 80; // px — meta + some air
+  const PADDING_H      = 40; // px each side
+
+  function calcSize(ratio) {
+    const [w, h] = ratio.split('/').map(Number);
+    const ar = w / h;
+    const availW = window.innerWidth  - PADDING_H * 2;
+    const availH = window.innerHeight - PADDING_TOP - PADDING_BOTTOM - 60; // 60 for meta row
+    let pw = availH * ar;
+    let ph = availH;
+    if (pw > availW) { pw = availW; ph = availW / ar; }
+    return { pw: Math.round(pw), ph: Math.round(ph) };
+  }
+
+  function render(idx, transition = false) {
+    const p = PAINTINGS[idx];
+    const { pw, ph } = calcSize(p.ratio);
+
+    if (transition) {
+      painting.classList.add('transitioning');
+      meta.classList.add('transitioning');
+      setTimeout(() => {
+        applyPainting(p, pw, ph);
+        painting.classList.remove('transitioning');
+        meta.classList.remove('transitioning');
+        isTransitioning = false;
+      }, 550);
+    } else {
+      applyPainting(p, pw, ph);
+    }
+  }
+
+  function applyPainting(p, pw, ph) {
+    wrap.style.width  = pw + 'px';
+    wrap.style.height = ph + 'px';
+    meta.style.width  = pw + 'px';
+    painting.style.background = p.bg;
+    title.textContent  = p.title;
+    detail.textContent = `${p.year}  ·  ${p.medium}  ·  ${p.dimensions}`;
+    ctr.textContent    = `${String(current + 1).padStart(2, '0')} / ${String(PAINTINGS.length).padStart(2, '0')}`;
+  }
+
+  function advance() {
+    if (isTransitioning) return;
+    if (!hintGone) { hint.classList.add('gone'); hintGone = true; }
+
+    if (current < PAINTINGS.length - 1) {
+      isTransitioning = true;
+      current++;
+      render(current, true);
+    } else {
+      // show end state
+      stage.style.opacity = '0';
+      stage.style.transition = 'opacity .5s ease';
+      finished.classList.add('visible');
+    }
+  }
+
+  wrap.addEventListener('click', advance);
+
+  document.getElementById('restartBtn').addEventListener('click', () => {
+    current = 0;
+    finished.classList.remove('visible');
+    stage.style.opacity = '';
+    stage.style.transition = '';
+    render(0);
+    if (hintGone) { hint.classList.remove('gone'); hintGone = false; }
+  });
+
+  // keyboard nav
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') advance();
+  });
+
+  // custom cursor — only visible when hovering the painting
+  wrap.addEventListener('mouseenter', () => cursor.classList.add('visible'));
+  wrap.addEventListener('mouseleave', () => cursor.classList.remove('visible'));
+  window.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+
+  // resize
+  window.addEventListener('resize', () => {
+    if (current < PAINTINGS.length) {
+      const p = PAINTINGS[current];
+      const { pw, ph } = calcSize(p.ratio);
+      wrap.style.width  = pw + 'px';
+      wrap.style.height = ph + 'px';
+      meta.style.width  = pw + 'px';
+    }
+  });
+
+  // init
+  render(0);
+</script>
+</body>
+</html>

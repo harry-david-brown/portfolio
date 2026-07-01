@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mara Solis — Display Modes</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  body {
+    background: #0F0E0C;
+    color: #F0EDE6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── hero ───────────────────────────────────────────────────── */
+  .hero {
+    padding: 18vh 2.5rem 6rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #5A5648;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    max-width: 18ch;
+    color: #F0EDE6;
+  }
+
+  /* ── mode list ──────────────────────────────────────────────── */
+  .modes {
+    list-style: none;
+    margin-top: 6rem;
+    border-top: 1px solid #2A2820;
+  }
+  .mode-item {
+    border-bottom: 1px solid #2A2820;
+  }
+  .mode-link {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.8rem 0;
+    text-decoration: none;
+    color: inherit;
+    transition: background .25s;
+    cursor: pointer;
+  }
+  .mode-link:hover { background: #161410; }
+  .mode-link:hover .mode-name { color: #F0EDE6; }
+  .mode-link:hover .mode-diagram line,
+  .mode-link:hover .mode-diagram rect { stroke: #C08B2A; }
+
+  .mode-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    color: #5A5648;
+    letter-spacing: .1em;
+    text-align: right;
+  }
+  .mode-body { display: flex; flex-direction: column; gap: .3rem; }
+  .mode-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: #C8C3B4;
+    transition: color .25s;
+  }
+  .mode-desc {
+    font-size: .85rem;
+    color: #5A5648;
+    line-height: 1.4;
+  }
+
+  .mode-diagram {
+    width: 72px;
+    height: 48px;
+    flex-shrink: 0;
+    opacity: .5;
+    transition: opacity .25s;
+  }
+  .mode-link:hover .mode-diagram { opacity: 1; }
+  .mode-diagram line, .mode-diagram rect {
+    stroke: #5A5648;
+    fill: none;
+    stroke-width: 1.5;
+    transition: stroke .25s;
+  }
+  .mode-diagram rect.filled { fill: #2A2820; }
+
+  /* ── footer ─────────────────────────────────────────────────── */
+  footer {
+    padding: 2rem 2.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    letter-spacing: .08em;
+    color: #3A382E;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 14vh 1.2rem 4rem; }
+    .modes { margin-top: 3rem; }
+    .mode-link { grid-template-columns: 2.4rem 1fr; }
+    .mode-diagram { display: none; }
+    footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: .4rem; }
+  }
+</style>
+</head>
+<body class="dark-page">
+
+<nav class="nav">
+  <a href="index.html" class="nav-name">Mara Solis</a>
+  <div class="nav-right">
+    <span class="nav-mode">Portfolio Demo</span>
+  </div>
+</nav>
+
+<main class="hero">
+  <p class="hero-eyebrow">Artist Portfolio — Display Modes</p>
+  <h1>How should your paintings be seen?</h1>
+
+  <ul class="modes">
+
+    <li class="mode-item">
+      <a class="mode-link" href="grid.html">
+        <span class="mode-num">01</span>
+        <div class="mode-body">
+          <span class="mode-name">Grid</span>
+          <span class="mode-desc">Everything visible at once. The viewer chooses where to look.</span>
+        </div>
+        <svg class="mode-diagram" viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="25"/>
+          <rect x="26" y="2" width="20" height="18"/>
+          <rect x="50" y="2" width="20" height="22"/>
+          <rect x="2" y="31" width="20" height="15"/>
+          <rect x="26" y="24" width="20" height="22"/>
+          <rect x="50" y="28" width="20" height="18"/>
+        </svg>
+      </a>
+    </li>
+
+    <li class="mode-item">
+      <a class="mode-link" href="scroll.html">
+        <span class="mode-num">02</span>
+        <div class="mode-body">
+          <span class="mode-name">Scroll</span>
+          <span class="mode-desc">One journey through your work. Top to bottom, in your chosen order.</span>
+        </div>
+        <svg class="mode-diagram" viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="48" height="16"/>
+          <rect x="12" y="22" width="48" height="24"/>
+        </svg>
+      </a>
+    </li>
+
+    <li class="mode-item">
+      <a class="mode-link" href="fullscreen.html">
+        <span class="mode-num">03</span>
+        <div class="mode-body">
+          <span class="mode-name">Fullscreen</span>
+          <span class="mode-desc">Nothing but the painting. One at a time, filling the screen.</span>
+        </div>
+        <svg class="mode-diagram" viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg">
+          <rect class="filled" x="2" y="2" width="68" height="44"/>
+          <line x1="58" y1="20" x2="65" y2="24"/>
+          <line x1="58" y1="28" x2="65" y2="24"/>
+        </svg>
+      </a>
+    </li>
+
+    <li class="mode-item">
+      <a class="mode-link" href="variable.html">
+        <span class="mode-num">04</span>
+        <div class="mode-body">
+          <span class="mode-name">Variable</span>
+          <span class="mode-desc">Each painting at its own proportions. Click the canvas to continue.</span>
+        </div>
+        <svg class="mode-diagram" viewBox="0 0 72 48" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="8" width="22" height="32"/>
+          <rect x="2" y="14" width="38" height="20" stroke-dasharray="3 2"/>
+          <rect x="2" y="6" width="68" height="10" stroke-dasharray="3 2" opacity=".3"/>
+        </svg>
+      </a>
+    </li>
+
+  </ul>
+</main>
+
+<footer>
+  <span>Mara Solis — Demo Portfolio</span>
+  <span>Custom build · 2026</span>
+</footer>
+
+</body>
+</html>
