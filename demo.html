@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mara Solis — Portfolio Demo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&family=JetBrains+Mono:wght@400&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+#app { display: flex; height: 100vh; overflow: hidden; font-family: system-ui, sans-serif; }
+
+/* ── Sidebar ─────────────────────────────────────────── */
+#sb {
+  width: 240px; flex-shrink: 0; height: 100%;
+  background: #131210; border-right: 1px solid #202018;
+  display: flex; flex-direction: column; user-select: none;
+}
+.sb-top { padding: 22px 18px 18px; border-bottom: 1px solid #202018; }
+.sb-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .13em; text-transform: uppercase;
+  color: #363428; margin-bottom: 7px;
+}
+.sb-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic; font-weight: 400; font-size: 19px;
+  color: #F0EDE6; line-height: 1.15;
+}
+.sb-medium { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #363428; margin-top: 5px; }
+
+.sb-modes { flex: 1; padding: 14px 0; overflow-y: auto; }
+.sb-section {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .13em; text-transform: uppercase;
+  color: #363428; padding: 0 18px 12px;
+}
+.btn {
+  display: block; width: 100%; padding: 11px 18px;
+  border: none; border-left: 2px solid transparent;
+  background: none; text-align: left; cursor: pointer;
+  transition: background .12s; color: #F0EDE6;
+}
+.btn:hover { background: rgba(255,255,255,.025); }
+.btn.on { background: rgba(192,139,42,.09); border-left-color: #C08B2A; }
+.btn-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: .08em;
+  color: #363428; margin-bottom: 3px;
+}
+.btn.on .btn-num { color: #C08B2A; }
+.btn-title { font-size: 13px; font-weight: 500; color: #7A7468; margin-bottom: 3px; transition: color .12s; }
+.btn:hover .btn-title, .btn.on .btn-title { color: #F0EDE6; }
+.btn-desc { font-size: 11px; color: #363428; line-height: 1.45; }
+
+.sb-footer { padding: 15px 18px; border-top: 1px solid #202018; font-size: 11px; color: #2A2820; line-height: 1.55; }
+
+/* ── Preview ─────────────────────────────────────────── */
+#pv { flex: 1; height: 100%; overflow: hidden; position: relative; background: #0C0B09; }
+
+/* fake browser chrome */
+#browser-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 34px;
+  background: #1C1A16; border-bottom: 1px solid #2A2820;
+  display: flex; align-items: center; padding: 0 16px; gap: 10px;
+  z-index: 10;
+}
+.dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.dot-r { background: #3A2020; }
+.dot-y { background: #3A3018; }
+.dot-g { background: #1A3020; }
+#url-bar {
+  flex: 1; background: #252218; border-radius: 5px;
+  padding: 5px 12px; max-width: 420px; margin: 0 auto;
+  display: flex; align-items: center; gap: 8px;
+}
+#url-lock { color: #4A4840; font-size: 10px; }
+#url-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: #8A8375; letter-spacing: .02em; flex: 1;
+}
+
+/* iframe shell */
+#frame-shell { position: absolute; top: 34px; left: 0; transform-origin: top left; }
+#frame { display: block; border: none; opacity: 0; transition: opacity .4s ease; }
+#frame.ready { opacity: 1; }
+
+/* loading */
+#loading {
+  position: absolute; top: 34px; left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .1em; text-transform: uppercase; color: #363428;
+  pointer-events: none; transition: opacity .2s;
+}
+#loading.gone { opacity: 0; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <aside id="sb">
+    <div class="sb-top">
+      <div class="sb-eyebrow">Portfolio Demo</div>
+      <div class="sb-name">Mara Solis</div>
+      <div class="sb-medium">Oil on linen and canvas</div>
+    </div>
+
+    <div class="sb-modes">
+      <div class="sb-section">Display mode</div>
+
+      <button class="btn on" data-src="index.html" data-url="marasolis.com">
+        <div class="btn-num">00</div>
+        <div class="btn-title">Index</div>
+        <div class="btn-desc">The landing page. Client's first impression.</div>
+      </button>
+
+      <button class="btn" data-src="grid.html" data-url="marasolis.com/works">
+        <div class="btn-num">01</div>
+        <div class="btn-title">Grid</div>
+        <div class="btn-desc">Everything visible at once. Viewer chooses where to look.</div>
+      </button>
+
+      <button class="btn" data-src="scroll.html" data-url="marasolis.com/works">
+        <div class="btn-num">02</div>
+        <div class="btn-title">Scroll</div>
+        <div class="btn-desc">One journey through the work, top to bottom.</div>
+      </button>
+
+      <button class="btn" data-src="fullscreen.html" data-url="marasolis.com/works">
+        <div class="btn-num">03</div>
+        <div class="btn-title">Fullscreen</div>
+        <div class="btn-desc">One painting fills the frame. Click or ← → to navigate.</div>
+      </button>
+
+      <button class="btn" data-src="variable.html" data-url="marasolis.com/works">
+        <div class="btn-num">04</div>
+        <div class="btn-title">Variable</div>
+        <div class="btn-desc">Each painting at its own proportions. Click to continue.</div>
+      </button>
+    </div>
+
+    <div class="sb-footer">Placeholder gradients — swap for real photography once a direction is chosen.</div>
+  </aside>
+
+  <div id="pv">
+    <div id="browser-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <div id="url-bar">
+        <span id="url-lock">🔒</span>
+        <span id="url-text">marasolis.com</span>
+      </div>
+    </div>
+
+    <div id="loading">Loading…</div>
+
+    <div id="frame-shell">
+      <iframe id="frame" src="index.html"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const DESIGN_W = 1280;
+const frame    = document.getElementById('frame');
+const shell    = document.getElementById('frame-shell');
+const pv       = document.getElementById('pv');
+const loading  = document.getElementById('loading');
+const urlText  = document.getElementById('url-text');
+
+function resize() {
+  const W = pv.clientWidth;
+  const H = pv.clientHeight - 34; // subtract browser bar
+  const scale = W / DESIGN_W;
+  frame.style.width  = DESIGN_W + 'px';
+  frame.style.height = Math.round(H / scale) + 'px';
+  shell.style.transform = `scale(${scale})`;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// inject scrollbar-hide CSS into iframe on load
+frame.addEventListener('load', () => {
+  try {
+    const s = frame.contentDocument.createElement('style');
+    s.textContent = '::-webkit-scrollbar{display:none}*{scrollbar-width:none}';
+    frame.contentDocument.head.appendChild(s);
+  } catch(e) {}
+  frame.classList.add('ready');
+  loading.classList.add('gone');
+});
+
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('on')) return;
+    document.querySelectorAll('.btn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    frame.classList.remove('ready');
+    loading.classList.remove('gone');
+    urlText.textContent = btn.dataset.url;
+    frame.src = btn.dataset.src;
+  });
+});
+</script>
+</body>
+</html>
