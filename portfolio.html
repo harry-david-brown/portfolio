@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio Lab — client design session</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Archivo:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+/* ============ TOOL CHROME ============ */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#0e0e0f;color:#c8c8c2;font:13px/1.5 Inter,Helvetica,Arial,sans-serif;overflow:hidden}
+#app{display:flex;height:100vh}
+button{font:inherit;cursor:pointer}
+
+#panel{width:302px;min-width:302px;background:#151514;border-right:1px solid #262624;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#333 transparent}
+.brand{padding:18px 18px 14px;border-bottom:1px solid #262624;font:700 13px 'Space Mono',monospace;letter-spacing:.06em;color:#eae6da}
+.brand span{display:block;font:400 10px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#7c7c74;margin-top:3px}
+.sec{padding:16px 18px 14px;border-bottom:1px solid #222220}
+.sec h3{font:700 10px 'Space Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#8d8d84;margin:0 0 10px}
+.hint{margin:-4px 0 10px;font-size:11px;color:#6f6f68;line-height:1.45}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.row label{font-size:11.5px;color:#a4a49c;flex:0 0 auto}
+select,input[type=text]{background:#0e0e0f;border:1px solid #2d2d2a;color:#ddd;border-radius:5px;padding:5px 7px;font:12px Inter,sans-serif;width:100%;min-width:0}
+.row select{width:150px}
+input[type=range]{width:150px;accent-color:#d8d2c2}
+input[type=color]{width:40px;height:24px;border:1px solid #2d2d2a;border-radius:5px;background:#0e0e0f;padding:2px}
+.colrow .val{font:11px 'Space Mono',monospace;color:#8a8a80}
+.seg{display:flex;border:1px solid #2d2d2a;border-radius:5px;overflow:hidden}
+.seg button{background:#0e0e0f;color:#a8a8a0;border:0;padding:4px 12px;font-size:12px}
+.seg button+button{border-left:1px solid #2d2d2a}
+.seg button.on{background:#e7e2d4;color:#151514}
+.presets{display:flex;flex-direction:column;gap:6px}
+.pbtn{display:flex;align-items:center;gap:8px;border:1px solid #2b2b28;background:#1b1b19;padding:8px 10px;border-radius:7px;color:#d3d3cb;text-align:left;transition:border-color .15s}
+.pbtn:hover{border-color:#4a4a44}
+.pbtn.on{border-color:#e7e2d4;background:#21211d}
+.pbtn .pn{flex:1;min-width:0}
+.pbtn .pn b{display:block;font-weight:600;font-size:12.5px}
+.pbtn .pn small{display:block;color:#79796f;font-size:10.5px;margin-top:1px;line-height:1.35}
+.star{flex:0 0 auto;background:none;border:0;color:#4c4c46;font-size:15px;padding:2px 4px;line-height:1}
+.star:hover{color:#8f8f85}
+.star.on{color:#f0b23c}
+.ghost{width:100%;background:#0e0e0f;border:1px solid #2d2d2a;color:#c2c2ba;border-radius:5px;padding:6px;font-size:12px;margin-top:2px}
+.ghost:hover{border-color:#4a4a44}
+.pfoot{padding:14px 18px 26px;font:10.5px 'Space Mono',monospace;color:#67675f;letter-spacing:.04em;line-height:1.7}
+
+#stage{flex:1;display:flex;flex-direction:column;min-width:0}
+#topbar{height:46px;flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:0 18px;border-bottom:1px solid #222220;background:#131312}
+#pname{font:700 12px 'Space Mono',monospace;letter-spacing:.05em;color:#eae6da}
+#pbatch{font:400 10px 'Space Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#7c7c74}
+#stars{font-size:11.5px;color:#b8a26a;margin-left:6px}
+.sp{flex:1}
+.tb{background:#1b1b19;border:1px solid #2b2b28;color:#a8a8a0;border-radius:5px;padding:5px 12px;font-size:12px}
+.tb.on{background:#e7e2d4;color:#151514;border-color:#e7e2d4}
+#browserwrap{flex:1;display:flex;justify-content:center;padding:20px;min-height:0}
+#browser{width:100%;max-width:1300px;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.55);transition:max-width .35s ease}
+#browser.mobile{max-width:410px}
+#chrome{height:40px;flex:0 0 auto;background:#e9e7e2;display:flex;align-items:center;gap:14px;padding:0 14px;border-bottom:1px solid #d8d5cf}
+.dots{display:flex;gap:7px}
+.dots i{width:11px;height:11px;border-radius:50%}
+.dots i:nth-child(1){background:#f26055}.dots i:nth-child(2){background:#f4bd4e}.dots i:nth-child(3){background:#61c454}
+#urlpill{flex:1;max-width:520px;margin:0 auto;background:#fff;border-radius:99px;padding:5px 16px;font:11.5px 'Space Mono',monospace;color:#666;display:flex;align-items:center;gap:8px;box-shadow:inset 0 0 0 1px #ddd}
+#urlpill svg{flex:0 0 auto;opacity:.5}
+#viewport{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;container-type:size;scrollbar-width:thin}
+
+/* ============ THE SITE ============ */
+.site{position:relative;min-height:100%;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:calc(15px * var(--scale));line-height:1.5}
+.site a{color:inherit;text-decoration:none;cursor:pointer}
+.s-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:calc(var(--pad)*.45) var(--pad)}
+.s-name{font-family:var(--dfont);font-weight:500;font-size:1.12em;letter-spacing:var(--track);text-transform:var(--case);white-space:nowrap}
+.s-nav{display:flex;gap:2.4em;font-size:.76em;letter-spacing:var(--track);text-transform:var(--case)}
+.s-nav a{opacity:.85;padding-bottom:2px}
+.s-nav a:hover{opacity:1}
+.s-nav a.on{border-bottom:1px solid var(--accent);opacity:1}
+.nav-center .s-head{flex-direction:column;align-items:center;gap:16px;text-align:center;padding-bottom:calc(var(--pad)*.5)}
+.nav-left.site{display:grid;grid-template-columns:225px 1fr;align-items:start}
+.nav-left .s-head{flex-direction:column;align-items:flex-start;gap:18px;position:sticky;top:0}
+.nav-left .s-nav{flex-direction:column;gap:.9em}
+.nav-left .s-main{padding-left:0}
+.nav-left .s-foot{grid-column:1/-1}
+.s-main{padding:calc(var(--pad)*.25) var(--pad) var(--pad)}
+.s-foot{padding:calc(var(--pad)*.7) var(--pad);font-size:.7em;letter-spacing:.05em;opacity:.55;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+figure{margin:0;min-width:0}
+.art{line-height:0}
+.art svg{display:block;width:100%;height:auto}
+figcaption{margin-top:.75em;font-size:.72em;line-height:1.55;display:flex;flex-direction:column;gap:1px;letter-spacing:.02em}
+figcaption .m{opacity:.55}
+.cap-hover figcaption{opacity:0;transition:opacity .25s}
+.cap-hover figure:hover figcaption{opacity:1}
+.cap-hidden figcaption{display:none}
+.f-hairline .art{border:1px solid color-mix(in srgb,var(--ink) 20%,transparent)}
+.f-shadow .art{box-shadow:0 14px 34px -14px rgba(0,0,0,.38)}
+.f-mat .art{background:#fff;padding:7.5%;border:1px solid rgba(0,0,0,.08);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+
+.l-grid .works{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:var(--gap);align-items:start}
+.l-column .works{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:calc(var(--gap)*1.5)}
+
+.l-postcards .works{display:flex;flex-direction:column;align-items:center;gap:calc(var(--gap)*1.7);padding-top:calc(var(--gap)*.5)}
+.l-postcards figure{width:min(370px,82%)}
+.l-postcards figure:nth-child(odd){transform:rotate(-1.7deg)}
+.l-postcards figure:nth-child(even){transform:rotate(1.3deg)}
+.l-postcards figcaption{font-style:italic;text-align:center;align-items:center;font-size:.8em;margin-top:1em}
+
+.l-index .works{display:flex;flex-direction:column;padding-top:calc(var(--gap)*.3)}
+.irow{display:grid;grid-template-columns:2.8em 1fr auto auto;gap:2em;align-items:baseline;padding:.8em 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 15%,transparent);font-size:.92em}
+.irow:first-of-type{border-top:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
+.irow:hover{color:var(--accent)}
+.irow .num{opacity:.4;font-size:.78em}
+.irow .im{opacity:.55;font-size:.82em}
+.irow .iy{opacity:.75;font-size:.85em}
+
+.l-terminal .s-main{padding:var(--pad)}
+.prompt{margin-bottom:1.4em;opacity:.85;font-size:.92em}
+.prompt .cur{display:inline-block;width:.55em;height:1em;background:var(--ink);vertical-align:-2px;margin-left:2px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.trow{display:grid;grid-template-columns:1fr auto auto;gap:2.6em;padding:.42em .6em;font-size:.92em;border-radius:2px}
+.trow:hover{background:color-mix(in srgb,var(--ink) 14%,transparent);color:var(--accent)}
+.trow span{opacity:.9}
+
+.l-scatter .works{position:relative}
+.l-scatter figure{position:absolute;transition:transform .25s,box-shadow .25s}
+.l-scatter figure:hover{z-index:9;transform:scale(1.025) rotate(0deg)!important}
+
+.mqhead{display:flex;justify-content:space-between;align-items:center;padding:calc(var(--pad)*.4) var(--pad)}
+.mq-year{font-size:.72em;letter-spacing:.1em;opacity:.6}
+.mq-name{margin:0;padding:.05em var(--pad) 0;font-family:var(--dfont);font-weight:900;font-size:13.2cqw;line-height:.88;letter-spacing:-.02em;text-transform:uppercase;word-break:break-word}
+.mq-sub{padding:14px var(--pad) calc(var(--pad)*.55);color:var(--accent);font-size:.78em;font-weight:600;letter-spacing:var(--track);text-transform:var(--case)}
+.l-marquee .works{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:var(--gap);align-items:start}
+.l-marquee figure:hover .art{outline:4px solid var(--accent);outline-offset:-4px}
+
+.l-film .s-main{padding:calc(var(--pad)*.25) 0 calc(var(--pad)*.5)}
+.l-film .works{display:flex;gap:var(--gap);overflow-x:auto;padding:calc(var(--gap)*.4) var(--pad) calc(var(--pad)*.4);align-items:flex-end;scrollbar-width:thin}
+.l-film figure{flex:0 0 auto}
+.l-film .art svg{width:auto;height:56cqh;max-height:640px}
+
+#float{position:absolute;width:min(330px,46%);pointer-events:none;z-index:40;opacity:0;transition:opacity .14s;box-shadow:0 22px 55px rgba(0,0,0,.4);line-height:0}
+#float svg{display:block;width:100%;height:auto}
+
+.site.m{--cols:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="panel">
+    <div class="brand">Portfolio Lab<span>client design session</span></div>
+
+    <div class="sec">
+      <h3>Batch 1 — The Painters</h3>
+      <p class="hint">Quiet, Format-style. The work is the centerpiece; the site just frames it.</p>
+      <div class="presets" id="b1"></div>
+    </div>
+
+    <div class="sec">
+      <h3>Batch 2 — The Artists</h3>
+      <p class="hint">Eclectic, Cargo-style. The site itself is part of the work.</p>
+      <div class="presets" id="b2"></div>
+    </div>
+
+    <div class="sec">
+      <h3>Identity</h3>
+      <div class="row"><label>Artist name</label></div>
+      <input type="text" id="c-name" autocomplete="off">
+      <div class="row" style="margin-top:10px"><label>Tagline</label></div>
+      <input type="text" id="c-tag" autocomplete="off">
+    </div>
+
+    <div class="sec">
+      <h3>Type</h3>
+      <div class="row"><label>Body face</label>
+        <select id="c-font">
+          <option value="inter">Inter (grotesk)</option>
+          <option value="grotesk">Space Grotesk</option>
+          <option value="garamond">EB Garamond</option>
+          <option value="georgia">Georgia</option>
+          <option value="mono">Space Mono</option>
+          <option value="archivo">Archivo</option>
+        </select>
+      </div>
+      <div class="row"><label>Display face</label>
+        <select id="c-dfont">
+          <option value="">Same as body</option>
+          <option value="inter">Inter</option>
+          <option value="grotesk">Space Grotesk</option>
+          <option value="garamond">EB Garamond</option>
+          <option value="georgia">Georgia</option>
+          <option value="mono">Space Mono</option>
+          <option value="archivo">Archivo (900)</option>
+        </select>
+      </div>
+      <div class="row"><label>Size</label><input type="range" id="c-scale" min="0.85" max="1.35" step="0.01"></div>
+      <div class="row"><label>Tracking</label><input type="range" id="c-track" min="0" max="0.3" step="0.005"></div>
+      <div class="row"><label>Case</label>
+        <select id="c-case">
+          <option value="uppercase">Uppercase</option>
+          <option value="none">Normal</option>
+          <option value="lowercase">Lowercase</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h3>Layout</h3>
+      <div class="row"><label>Mode</label>
+        <select id="c-layout">
+          <option value="grid">Grid</option>
+          <option value="column">Single column</option>
+          <option value="index">Index list</option>
+          <option value="scatter">Scatter</option>
+          <option value="marquee">Marquee</option>
+          <option value="terminal">Terminal</option>
+          <option value="film">Filmstrip</option>
+          <option value="postcards">Postcards</option>
+        </select>
+      </div>
+      <div class="row"><label>Columns</label>
+        <div class="seg" id="c-cols">
+          <button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button>
+        </div>
+      </div>
+      <div class="row"><label>Page margin</label><input type="range" id="c-pad" min="16" max="140" step="2"></div>
+      <div class="row"><label>Gap</label><input type="range" id="c-gap" min="8" max="120" step="2"></div>
+      <div class="row"><label>Nav</label>
+        <select id="c-navpos">
+          <option value="top">Top</option>
+          <option value="center">Centered</option>
+          <option value="left">Left column</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h3>Color</h3>
+      <div class="row colrow"><label>Paper</label><span class="val" id="v-paper"></span><input type="color" id="c-paper"></div>
+      <div class="row colrow"><label>Ink</label><span class="val" id="v-ink"></span><input type="color" id="c-ink"></div>
+      <div class="row colrow"><label>Accent</label><span class="val" id="v-accent"></span><input type="color" id="c-accent"></div>
+    </div>
+
+    <div class="sec">
+      <h3>Images</h3>
+      <div class="row"><label>Frame</label>
+        <select id="c-frame">
+          <option value="none">None</option>
+          <option value="hairline">Hairline</option>
+          <option value="shadow">Shadow</option>
+          <option value="mat">Museum mat</option>
+        </select>
+      </div>
+      <div class="row"><label>Captions</label>
+        <select id="c-captions">
+          <option value="below">Below</option>
+          <option value="hover">On hover</option>
+          <option value="hidden">Hidden</option>
+        </select>
+      </div>
+      <button class="ghost" id="c-shuffle">↻ Repaint placeholder works</button>
+    </div>
+
+    <div class="pfoot">← → cycle presets<br>★ shortlist favourites for the call<br>edit any control to fork a preset into a custom mix</div>
+  </aside>
+
+  <main id="stage">
+    <div id="topbar">
+      <span id="pname">—</span>
+      <span id="pbatch"></span>
+      <span id="stars"></span>
+      <span class="sp"></span>
+      <button class="tb on" id="v-desk">Desktop</button>
+      <button class="tb" id="v-mob">Mobile</button>
+    </div>
+    <div id="browserwrap">
+      <div id="browser">
+        <div id="chrome">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div id="urlpill">
+            <svg width="10" height="12" viewBox="0 0 10 12"><path d="M2 5V3.5a3 3 0 016 0V5h.5A1.5 1.5 0 0110 6.5v4A1.5 1.5 0 018.5 12h-7A1.5 1.5 0 010 10.5v-4A1.5 1.5 0 011.5 5H2zm1.4 0h3.2V3.5a1.6 1.6 0 00-3.2 0V5z" fill="#888"/></svg>
+            <span id="url">https://artist.com</span>
+          </div>
+          <div style="width:47px"></div>
+        </div>
+        <div id="viewport"><div id="site" class="site"></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+const FONTS = {
+  garamond:{stack:"'EB Garamond',Georgia,serif"},
+  georgia:{stack:"Georgia,'Times New Roman',serif"},
+  inter:{stack:"'Inter',Helvetica,Arial,sans-serif"},
+  grotesk:{stack:"'Space Grotesk',Arial,sans-serif"},
+  mono:{stack:"'Space Mono','Courier New',monospace"},
+  archivo:{stack:"'Archivo','Arial Black',Arial,sans-serif"}
+};
+
+/* ---------- placeholder paintings (procedural, original) ---------- */
+const PALETTES = [
+  ['#dcd6c8','#a8552f','#3f4a3c','#c9b47a'],
+  ['#e8e4da','#33506b','#b0b7ad','#8a3324'],
+  ['#efe9df','#c67f43','#7d8ca3','#4a4238'],
+  ['#e5dfd2','#606c5a','#d1a05a','#2f2b26'],
+  ['#ece7de','#95542e','#c8bfae','#40556e'],
+  ['#e9e3d6','#6b7f8a','#b5936a','#3a3f36']
+];
+const TITLES = ['Untitled (Dusk)','Field IV','Interior with Chair','Still Water','The Yellow Room','Notation 12','Harbour, Evening','Two Figures','Study in Umber','Late Snow','Vessel','The Long Field'];
+const MEDIA = ['oil on linen','oil on canvas','oil on panel','acrylic and pencil on panel','gouache on paper'];
+const ASPECTS = [[4,5],[3,4],[1,1],[5,4],[4,3],[2,3],[3,2]];
+
+function makeWorks(seed){
+  const rnd = mulberry32(seed);
+  const titles = TITLES.slice().sort(() => rnd() - .5);
+  const out = [];
+  for(let i=0;i<10;i++){
+    const pal = PALETTES[Math.floor(rnd()*PALETTES.length)];
+    const [aw,ah] = ASPECTS[Math.floor(rnd()*ASPECTS.length)];
+    const w = 900, h = Math.round(900*ah/aw), u = 'w'+i;
+    const hy = h*(.42 + rnd()*.32);
+    let sh = '';
+    sh += `<rect x="0" y="${hy.toFixed(0)}" width="${w}" height="${(h-hy).toFixed(0)}" fill="${pal[1]}" opacity="${(.82+rnd()*.18).toFixed(2)}"/>`;
+    const ex = rnd()*w, ey = hy + (rnd()-.5)*h*.3, erx = w*(.16+rnd()*.26);
+    sh += `<ellipse cx="${ex.toFixed(0)}" cy="${ey.toFixed(0)}" rx="${erx.toFixed(0)}" ry="${(erx*(.5+rnd()*.7)).toFixed(0)}" fill="${pal[2]}" opacity="${(.45+rnd()*.35).toFixed(2)}" filter="url(#bl${u})"/>`;
+    const pick = rnd();
+    if(pick < .38){
+      sh += `<rect x="${(w*.08).toFixed(0)}" y="${(hy-(6+rnd()*40)).toFixed(0)}" width="${(w*.84).toFixed(0)}" height="${(5+rnd()*11).toFixed(0)}" fill="${pal[3]}" opacity=".9"/>`;
+    } else if(pick < .72){
+      const s = 55+rnd()*110;
+      sh += `<rect x="${(rnd()*(w-s)).toFixed(0)}" y="${(rnd()*(h-s)*.8).toFixed(0)}" width="${s.toFixed(0)}" height="${s.toFixed(0)}" fill="${pal[3]}" opacity="${(.7+rnd()*.3).toFixed(2)}"/>`;
+    } else {
+      sh += `<rect x="${(w*(.15+rnd()*.6)).toFixed(0)}" y="0" width="${(7+rnd()*16).toFixed(0)}" height="${h}" fill="${pal[3]}" opacity=".55"/>`;
+    }
+    if(rnd() > .55){
+      sh += `<ellipse cx="${(rnd()*w).toFixed(0)}" cy="${(rnd()*hy).toFixed(0)}" rx="${(w*.12+rnd()*w*.14).toFixed(0)}" ry="${(h*.06+rnd()*h*.1).toFixed(0)}" fill="${pal[3]}" opacity=".25" filter="url(#bl${u})"/>`;
+    }
+    const svg =
+      `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="placeholder painting">`+
+      `<defs><filter id="bl${u}" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${(16+rnd()*22).toFixed(0)}"/></filter>`+
+      `<filter id="gr${u}"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter></defs>`+
+      `<rect width="${w}" height="${h}" fill="${pal[0]}"/>${sh}`+
+      `<rect width="${w}" height="${h}" filter="url(#gr${u})" opacity="0.07"/></svg>`;
+    const win = Math.round(24 + rnd()*36);
+    out.push({
+      title: titles[i % titles.length],
+      year: 2021 + Math.floor(rnd()*6),
+      medium: MEDIA[Math.floor(rnd()*MEDIA.length)],
+      dims: `${win} × ${Math.round(win*ah/aw)} in`,
+      svg,
+      sc: { l: 3 + rnd()*54, w: 23 + rnd()*21, r: (rnd()*8 - 4), j: rnd()*80 }
+    });
+  }
+  return out;
+}
+
+/* ---------- state, presets ---------- */
+const BASE = {layout:'grid',columns:3,gap:48,pad:72,font:'inter',displayFont:'',scale:1,tracking:.08,navCase:'uppercase',paper:'#ffffff',ink:'#161616',accent:'#161616',frame:'none',captions:'below',navPos:'top'};
+
+const PRESETS = [
+ {id:'gallery',batch:1,name:'Gallery White',note:'3-up grid · captions on hover',
+  s:{font:'inter',columns:3,gap:56,pad:88,captions:'hover',tracking:.14,paper:'#ffffff',ink:'#1a1a1a',accent:'#1a1a1a'}},
+ {id:'ivory',batch:1,name:'Ivory Serif',note:'Garamond · centered nav · 2-up',
+  s:{font:'garamond',displayFont:'garamond',navPos:'center',columns:2,gap:72,pad:96,navCase:'none',tracking:.02,paper:'#faf7f1',ink:'#26221c',accent:'#26221c',scale:1.06}},
+ {id:'north',batch:1,name:'North Light',note:'Tight grid · hairline frames · no captions',
+  s:{font:'inter',columns:3,gap:20,pad:64,frame:'hairline',captions:'hidden',paper:'#f1f1ef',ink:'#2a2a2a',accent:'#2a2a2a',tracking:.12}},
+ {id:'onebyone',batch:1,name:'One by One',note:'Single column · slow scroll',
+  s:{layout:'column',font:'garamond',displayFont:'garamond',gap:96,pad:110,navCase:'none',tracking:.03,paper:'#ffffff',ink:'#20201d',accent:'#20201d',scale:1.04}},
+ {id:'leftmargin',batch:1,name:'Left Margin',note:'Fixed side nav · 2-up · airy',
+  s:{navPos:'left',columns:2,gap:44,pad:52,font:'inter',tracking:.16,paper:'#fbfaf7',ink:'#1d1d1b',accent:'#1d1d1b',captions:'hover'}},
+ {id:'museum',batch:1,name:'Museum Mat',note:'Matted frames · Georgia captions',
+  s:{frame:'mat',columns:2,gap:64,pad:88,font:'georgia',displayFont:'georgia',navCase:'none',tracking:.02,paper:'#edeae3',ink:'#2b2823',accent:'#2b2823'}},
+
+ {id:'index',batch:2,name:'The Index',note:'Text-only list · hover to see the work',
+  s:{layout:'index',font:'mono',pad:64,paper:'#ffffff',ink:'#000000',accent:'#0000e6',navCase:'lowercase',tracking:0}},
+ {id:'scatter',batch:2,name:'Loose Leaves',note:'Scattered tabletop · nothing aligned',
+  s:{layout:'scatter',font:'grotesk',paper:'#eef0ec',ink:'#191b18',accent:'#c34b23',frame:'shadow',captions:'hover',pad:48,tracking:.06}},
+ {id:'broadcast',batch:2,name:'Broadcast',note:'Archivo 900 marquee · safety orange',
+  s:{layout:'marquee',font:'grotesk',displayFont:'archivo',paper:'#f4efe6',ink:'#101010',accent:'#ff4d00',columns:3,gap:14,pad:44,captions:'hover',tracking:.1}},
+ {id:'server',batch:2,name:'Amber Server',note:'Terminal listing · CRT amber',
+  s:{layout:'terminal',font:'mono',paper:'#14110c',ink:'#ffb000',accent:'#ffd980',pad:48,captions:'hidden',navCase:'lowercase',tracking:0}},
+ {id:'filmstrip',batch:2,name:'Filmstrip',note:'One row · scroll sideways',
+  s:{layout:'film',font:'grotesk',gap:36,pad:56,captions:'hover',paper:'#ffffff',ink:'#141414',accent:'#141414',tracking:.12}},
+ {id:'postcards',batch:2,name:'Postcards',note:'Small, rotated, handwritten',
+  s:{layout:'postcards',font:'georgia',displayFont:'georgia',gap:64,pad:72,paper:'#fdfbf5',ink:'#33302a',accent:'#33302a',navCase:'none',tracking:.02,frame:'shadow'}}
+];
+
+const state = Object.assign({}, BASE, {name:'Mara Ellison', tagline:'Paintings', preset:'gallery', mobile:false});
+let works = makeWorks(7);
+const shortlist = new Set();
+
+const slug = () => (state.name.toLowerCase().replace(/[^a-z0-9]/g,'') || 'artist');
+
+/* ---------- site rendering ---------- */
+function fig(w, style){
+  return `<figure${style?` style="${style}"`:''}><div class="art">${w.svg}</div>`+
+    `<figcaption><span class="t">${esc(w.title)}</span><span class="m">${w.year} — ${w.medium}, ${w.dims}</span></figcaption></figure>`;
+}
+
+function headHTML(){
+  const nav = `<nav class="s-nav"><a class="on">Work</a><a>About</a><a>Contact</a></nav>`;
+  if(state.layout === 'terminal') return '';
+  if(state.layout === 'marquee'){
+    return `<header class="mqhead">${nav}<span class="mq-year">EST. 2019 — ONTARIO</span></header>`+
+      `<h1 class="mq-name">${esc(state.name)}</h1>`+
+      `<div class="mq-sub">${esc(state.tagline)} / selected works 2021–2026</div>`;
+  }
+  return `<header class="s-head"><a class="s-name">${esc(state.name)}</a>${nav}</header>`;
+}
+
+function worksHTML(){
+  const L = state.layout;
+  if(L === 'index'){
+    return `<div class="works">${works.map((w,i)=>
+      `<div class="irow" data-i="${i}"><span class="num">${String(i+1).padStart(2,'0')}</span>`+
+      `<span class="it">${esc(w.title)}</span><span class="im">${w.medium}</span><span class="iy">${w.year}</span></div>`).join('')}</div><div id="float"></div>`;
+  }
+  if(L === 'terminal'){
+    const file = t => t.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'') + '.tif';
+    return `<div class="prompt">${slug()}@studio:~/works$ ls -la<span class="cur"></span></div>`+
+      `<div class="works">${works.map((w,i)=>
+      `<div class="trow" data-i="${i}"><span>${file(w.title)}</span><span>${300+(i*137)%900}K</span><span>${w.year}</span></div>`).join('')}</div><div id="float"></div>`;
+  }
+  if(L === 'scatter'){
+    const rowH = state.mobile ? 240 : 195;
+    const html = works.map((w,i)=>{
+      const p = w.sc;
+      const wd = state.mobile ? Math.min(p.w*2.1, 82) : p.w;
+      return fig(w, `left:${p.l.toFixed(1)}%;top:${(30+i*rowH+p.j).toFixed(0)}px;width:${wd.toFixed(1)}%;transform:rotate(${p.r.toFixed(1)}deg)`);
+    }).join('');
+    return `<div class="works" style="height:${30+works.length*rowH+340}px">${html}</div>`;
+  }
+  return `<div class="works">${works.map(w=>fig(w)).join('')}</div>`;
+}
+
+function footHTML(){
+  if(state.layout === 'terminal') return '';
+  return `<footer class="s-foot"><span>© 2026 ${esc(state.name)}</span><span>studio@${slug()}.com</span><span>Instagram</span></footer>`;
+}
+
+function render(){
+  const site = $('#site'), vp = $('#viewport');
+  const effPad = state.mobile ? Math.min(26, state.pad) : state.pad;
+  const effCols = state.mobile ? 1 : state.columns;
+  site.className = `site l-${state.layout} nav-${state.navPos} f-${state.frame} cap-${state.captions}${state.mobile?' m':''}`;
+  const df = state.displayFont || state.font;
+  const vars = {'--paper':state.paper,'--ink':state.ink,'--accent':state.accent,
+    '--font':FONTS[state.font].stack,'--dfont':FONTS[df].stack,
+    '--scale':state.scale,'--track':state.tracking+'em','--case':state.navCase,
+    '--pad':effPad+'px','--gap':state.gap+'px','--cols':effCols};
+  for(const k in vars) site.style.setProperty(k, vars[k]);
+  site.innerHTML = headHTML() + `<main class="s-main">${worksHTML()}</main>` + footHTML();
+  $('#url').textContent = `https://${slug()}.com`;
+
+  const fl = site.querySelector('#float');
+  if(fl){
+    site.querySelectorAll('[data-i]').forEach(r=>{
+      r.addEventListener('mouseenter',()=>{ fl.innerHTML = works[+r.dataset.i].svg; fl.style.opacity = 1; });
+      r.addEventListener('mouseleave',()=>{ fl.style.opacity = 0; });
+    });
+    site.onmousemove = e=>{
+      const sr = site.getBoundingClientRect();
+      const x = Math.min(e.clientX - sr.left + 18, site.clientWidth - fl.offsetWidth - 12);
+      fl.style.left = Math.max(8,x) + 'px';
+      fl.style.top = (e.clientY - sr.top + 20) + 'px';
+    };
+  } else { site.onmousemove = null; }
+
+  const p = PRESETS.find(p=>p.id===state.preset);
+  $('#pname').textContent = p ? p.name : 'Custom mix';
+  $('#pbatch').textContent = p ? (p.batch===1?'batch 1 · the painters':'batch 2 · the artists') : 'forked from a preset';
+  document.querySelectorAll('.pbtn').forEach(b=>b.classList.toggle('on', b.dataset.id===state.preset));
+}
+
+/* ---------- presets ui ---------- */
+function renderPresetButtons(){
+  [1,2].forEach(batch=>{
+    const box = $(batch===1?'#b1':'#b2');
+    box.innerHTML = '';
+    PRESETS.filter(p=>p.batch===batch).forEach(p=>{
+      const b = document.createElement('button');
+      b.className = 'pbtn'; b.dataset.id = p.id;
+      b.innerHTML = `<span class="pn"><b>${p.name}</b><small>${p.note}</small></span>`+
+        `<span class="star${shortlist.has(p.id)?' on':''}" title="Shortlist">★</span>`;
+      b.addEventListener('click', e=>{
+        if(e.target.classList.contains('star')){
+          shortlist.has(p.id) ? shortlist.delete(p.id) : shortlist.add(p.id);
+          e.target.classList.toggle('on'); updateStars(); return;
+        }
+        applyPreset(p);
+      });
+      box.appendChild(b);
+    });
+  });
+}
+function updateStars(){
+  const names = PRESETS.filter(p=>shortlist.has(p.id)).map(p=>p.name);
+  $('#stars').textContent = names.length ? `★ ${names.join(' · ')}` : '';
+}
+function applyPreset(p){
+  const keep = {name:state.name, tagline:state.tagline, mobile:state.mobile};
+  Object.assign(state, BASE, p.s, {preset:p.id}, keep);
+  sync(); render();
+  $('#viewport').scrollTop = 0;
+}
+
+/* ---------- controls ---------- */
+function markCustom(){ state.preset=''; }
+function bindInput(id, key, cast){
+  const el = $(id);
+  el.addEventListener('input', ()=>{ state[key] = cast ? cast(el.value) : el.value; markCustom(); sync(false); render(); });
+  return el;
+}
+const num = parseFloat;
+bindInput('#c-name','name');
+bindInput('#c-tag','tagline');
+bindInput('#c-font','font');
+bindInput('#c-dfont','displayFont');
+bindInput('#c-scale','scale',num);
+bindInput('#c-track','tracking',num);
+bindInput('#c-case','navCase');
+bindInput('#c-layout','layout');
+bindInput('#c-pad','pad',num);
+bindInput('#c-gap','gap',num);
+bindInput('#c-navpos','navPos');
+bindInput('#c-paper','paper');
+bindInput('#c-ink','ink');
+bindInput('#c-accent','accent');
+bindInput('#c-frame','frame');
+bindInput('#c-captions','captions');
+
+document.querySelectorAll('#c-cols button').forEach(b=>{
+  b.addEventListener('click', ()=>{ state.columns = +b.dataset.v; markCustom(); sync(false); render(); });
+});
+$('#c-shuffle').addEventListener('click', ()=>{ works = makeWorks((Math.random()*1e9)|0); render(); });
+
+$('#v-desk').addEventListener('click', ()=>{ state.mobile=false; viewMode(); });
+$('#v-mob').addEventListener('click', ()=>{ state.mobile=true; viewMode(); });
+function viewMode(){
+  $('#browser').classList.toggle('mobile', state.mobile);
+  $('#v-desk').classList.toggle('on', !state.mobile);
+  $('#v-mob').classList.toggle('on', state.mobile);
+  render();
+}
+
+function sync(setText = true){
+  if(setText){ $('#c-name').value = state.name; $('#c-tag').value = state.tagline; }
+  $('#c-font').value = state.font;
+  $('#c-dfont').value = state.displayFont || '';
+  $('#c-scale').value = state.scale;
+  $('#c-track').value = state.tracking;
+  $('#c-case').value = state.navCase;
+  $('#c-layout').value = state.layout;
+  $('#c-pad').value = state.pad;
+  $('#c-gap').value = state.gap;
+  $('#c-navpos').value = state.navPos;
+  $('#c-paper').value = state.paper; $('#v-paper').textContent = state.paper;
+  $('#c-ink').value = state.ink; $('#v-ink').textContent = state.ink;
+  $('#c-accent').value = state.accent; $('#v-accent').textContent = state.accent;
+  $('#c-frame').value = state.frame;
+  $('#c-captions').value = state.captions;
+  document.querySelectorAll('#c-cols button').forEach(b=>b.classList.toggle('on', +b.dataset.v===state.columns));
+}
+
+/* keyboard: cycle presets */
+document.addEventListener('keydown', e=>{
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const i = PRESETS.findIndex(p=>p.id===state.preset);
+  const n = PRESETS.length;
+  const next = e.key==='ArrowRight' ? (i+1)%n : (i-1+n)%n;
+  applyPreset(PRESETS[next]);
+});
+
+/* ---------- boot ---------- */
+renderPresetButtons();
+applyPreset(PRESETS[0]);
+updateStars();
+</script>
+</body>
+</html>
