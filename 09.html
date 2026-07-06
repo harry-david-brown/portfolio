@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mattie Chernos</title>
+<meta name="description" content="Paintings by Mattie Chernos. Selected works shown at relative scale.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E8E1D6'/%3E%3Crect x='8' y='10' width='16' height='12' fill='%232E2A24'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens ============ */
+:root{
+  --wall:#E8E1D6;                 /* warm plaster */
+  --ink:#2E2A24;
+  --soft:rgba(46,42,36,.55);
+  --line:rgba(46,42,36,.16);
+  --pad:56px;
+  --track:.13em;
+  --serif:'EB Garamond',Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--wall);color:var(--ink);font:400 16px/1.55 var(--serif)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+svg,img{display:block}
+
+/* ============ fixed chrome ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:baseline;
+  gap:24px;padding:30px var(--pad) 26px;
+  background:linear-gradient(var(--wall) 40%,rgba(232,225,214,0))}
+.name{font-size:19px;font-weight:500;letter-spacing:var(--track);text-transform:uppercase;white-space:nowrap}
+nav{display:flex;gap:2.4em;font-size:12.5px;letter-spacing:var(--track);text-transform:uppercase}
+nav a{opacity:.8;padding-bottom:3px;border-bottom:1px solid transparent}
+nav a:hover{opacity:1}
+nav a.on{opacity:1;border-bottom-color:var(--ink)}
+
+#counter{position:fixed;right:var(--pad);top:50%;transform:translateY(-50%);z-index:20;
+  font-size:12px;letter-spacing:.16em;color:var(--soft);writing-mode:vertical-rl}
+.badge{position:fixed;left:var(--pad);bottom:22px;z-index:20;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--soft);opacity:.75}
+
+/* ============ walls ============ */
+.wall{position:relative;height:100vh}
+.wall::after{content:'';position:absolute;left:0;right:0;top:88%;height:1px;background:var(--line)}  /* baseboard */
+.rn{position:absolute;left:var(--pad);top:55%;transform:translateY(-50%);font-size:12px;letter-spacing:.2em;color:var(--soft)}
+.linegrp{position:absolute;top:55%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center}
+.work{position:relative;flex:0 0 auto;cursor:pointer}
+.art{line-height:0;
+  box-shadow:0 1px 2px rgba(46,42,36,.22),0 26px 44px -20px rgba(46,42,36,.42)}
+.art>*{width:100%;height:auto}
+.work:hover .art{box-shadow:0 1px 2px rgba(46,42,36,.24),0 32px 54px -20px rgba(46,42,36,.5)}
+.label{position:absolute;left:0;top:calc(100% + 16px);width:max-content;max-width:260px;
+  font-size:12.5px;line-height:1.5;letter-spacing:.02em;display:flex;flex-direction:column;gap:1px;
+  opacity:0;transition:opacity .25s}
+.label .meta{color:var(--soft)}
+.work:hover .label,.work:focus-within .label{opacity:1}
+
+/* ============ end matter (about / contact) ============ */
+.page{min-height:72vh;padding:18vh var(--pad) 10vh;max-width:calc(560px + var(--pad)*2);margin:0 auto}
+.page h1{font-size:19px;font-weight:500;letter-spacing:var(--track);text-transform:uppercase;margin:0 0 1.4em}
+.page p{margin:0 0 1.1em;font-size:17px}
+.placeholder{font-style:italic;color:var(--soft)}
+.cv{margin-top:2.4em;border-top:1px solid var(--line);padding-top:1.6em}
+.cv h2{font-size:12.5px;font-weight:500;letter-spacing:var(--track);text-transform:uppercase;margin:0 0 1em;color:var(--soft)}
+.cv-row{display:flex;gap:2em;padding:.45em 0;border-bottom:1px solid var(--line);font-size:15px}
+.cv-row span:first-child{flex:0 0 3.2em;color:var(--soft)}
+.contact-line{font-size:17px;margin-bottom:.6em}
+.contact-line a{border-bottom:1px solid var(--line)}
+.contact-line a:hover{border-bottom-color:var(--ink)}
+footer{padding:40px var(--pad) 60px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:12px;letter-spacing:.05em;color:var(--soft)}
+
+/* ============ filmstrip detail overlay ============ */
+#detail{position:fixed;inset:0;z-index:60;background:var(--wall);display:none;flex-direction:column;
+  padding:96px var(--pad) 0}
+#detail.open{display:flex}
+.backrow{padding:0 0 20px;font-size:12.5px;letter-spacing:var(--track);text-transform:uppercase}
+.backrow button{opacity:.65;border-bottom:1px solid currentColor;padding-bottom:2px;letter-spacing:inherit;text-transform:inherit}
+.backrow button:hover{opacity:1}
+.strip{flex:1;display:flex;gap:48px;overflow-x:auto;align-items:center;
+  padding:8px 4px 46px;scrollbar-width:thin;scroll-behavior:smooth}
+.strip figure{margin:0;flex:0 0 auto}
+.strip .art>*{width:auto;height:min(60vh,680px);max-width:86vw}
+.strip figcaption{margin-top:.8em;font-size:12.5px;line-height:1.5;letter-spacing:.02em;display:flex;flex-direction:column;gap:1px}
+.strip figcaption .meta{color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html,.strip{scroll-behavior:auto}}
+
+/* ============ small screens ============ */
+@media (max-width:640px){
+  :root{--pad:22px}
+  header{flex-direction:column;gap:12px;align-items:flex-start;padding-top:20px}
+  #counter{display:none}
+  .wall{height:auto;padding:14vh 0}
+  .wall::after{display:none}
+  .rn{top:6vh;transform:none}
+  .linegrp{position:static;transform:none;flex-direction:column;align-items:center;gap:16vh!important}
+  .label{position:static;margin-top:14px;opacity:1}
+  #detail{padding-top:84px}
+  .strip{flex-direction:column;align-items:flex-start;overflow-x:visible;overflow-y:auto}
+  .strip .art>*{width:100%;height:auto;max-width:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="name" href="#top">Mattie Chernos</a>
+  <nav aria-label="Main">
+    <a href="#top" class="on">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div id="counter" aria-hidden="true"></div>
+<div class="badge">Prototype 02 · The Hang — works at relative scale</div>
+
+<main id="top">
+  <div id="walls" aria-label="Selected works, hung wall by wall"></div>
+
+  <section id="about" class="page">
+    <h1>About</h1>
+    <p class="placeholder">(Bio to come: two or three short paragraphs about Mattie, the work, and the studio practice.)</p>
+    <p class="placeholder">(A note on materials and process can sit here maybe)</p>
+    <div class="cv">
+      <h2>Selected exhibitions</h2>
+      <div class="cv-row"><span>2026</span><span class="placeholder">(Exhibition title, venue, city)</span></div>
+      <div class="cv-row"><span>2025</span><span class="placeholder">(Exhibition title, venue, city)</span></div>
+      <div class="cv-row"><span>2024</span><span class="placeholder">(Exhibition title, venue, city)</span></div>
+    </div>
+  </section>
+
+  <section id="contact" class="page">
+    <h1>Contact</h1>
+    <p class="contact-line"><a href="mailto:studio@mattiechernos.com">studio@mattiechernos.com</a></p>
+    <p class="placeholder" style="margin-top:1.6em">Studio visits and inquiries welcome.</p>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Mattie Chernos</span>
+  <span>Works shown at relative scale</span>
+</footer>
+
+<div id="detail" role="dialog" aria-label="Work detail" aria-modal="true">
+  <div class="backrow"><button id="back" type="button">← All works</button></div>
+  <div class="strip" id="strip"></div>
+</div>
+
+<script>
+/* ================= works data =================
+   Replace src:null with the real photograph path
+   (e.g. src:'images/field-iv.jpg'); wIn/hIn are the
+   painting's true width/height in inches and drive
+   the relative-scale hang. */
+const WORKS = [
+  {title:'Untitled (Dusk)',      year:2025, medium:'oil on linen',  dims:'36 × 48 in', src:'1.png'},
+  {title:'Field IV',             year:2025, medium:'oil on canvas', dims:'40 × 30 in', src:'2.png'},
+  {title:'Interior with Chair',  year:2024, medium:'oil on panel',  dims:'24 × 24 in', src:'3.png'},
+  {title:'Still Water',          year:2024, medium:'oil on linen',  dims:'48 × 36 in', src:'4.png'},
+  {title:'The Yellow Room',      year:2024, medium:'oil on canvas', dims:'30 × 40 in', src:'5.png'},
+  {title:'Harbour, Evening',     year:2023, medium:'oil on linen',  dims:'60 × 40 in', src:'6.png'},
+  {title:'Two Figures',          year:2023, medium:'oil on panel',  dims:'20 × 24 in', src:'7.png'},
+  {title:'Study in Umber',       year:2023, medium:'oil on paper',  dims:'15 × 22 in', src:'8.png'},
+  {title:'Late Snow',            year:2022, medium:'oil on canvas', dims:'36 × 36 in', src:'9.png'},
+  {title:'Vessel',               year:2022, medium:'oil on linen',  dims:'28 × 34 in', src:'10.png'}
+];
+/* how the works are grouped into walls */
+const WALLS=[[0],[1,2],[5],[3,4],[6,7,8],[9]];
+const ROMAN=['I','II','III','IV','V','VI','VII','VIII'];
+
+/* ---------- placeholder painting generator (delete once real images exist) ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const PALETTES=[['#dcd6c8','#a8552f','#3f4a3c','#c9b47a'],['#e8e4da','#33506b','#b0b7ad','#8a3324'],
+['#efe9df','#c67f43','#7d8ca3','#4a4238'],['#e5dfd2','#606c5a','#d1a05a','#2f2b26'],['#ece7de','#95542e','#c8bfae','#40556e']];
+function placeholderSVG(i,[aw,ah]){
+  const rnd=mulberry32(11+i*97),pal=PALETTES[i%PALETTES.length];
+  const w=900,h=Math.round(900*ah/aw),u='p'+i,hy=h*(.42+rnd()*.32);
+  let s=`<rect x="0" y="${hy|0}" width="${w}" height="${(h-hy)|0}" fill="${pal[1]}" opacity="${(.82+rnd()*.18).toFixed(2)}"/>`;
+  s+=`<ellipse cx="${(rnd()*w)|0}" cy="${(hy+(rnd()-.5)*h*.3)|0}" rx="${(w*(.16+rnd()*.26))|0}" ry="${(w*(.12+rnd()*.2))|0}" fill="${pal[2]}" opacity="${(.45+rnd()*.35).toFixed(2)}" filter="url(#b${u})"/>`;
+  const k=rnd();
+  if(k<.4)s+=`<rect x="${(w*.08)|0}" y="${(hy-(6+rnd()*40))|0}" width="${(w*.84)|0}" height="${(5+rnd()*11)|0}" fill="${pal[3]}" opacity=".9"/>`;
+  else if(k<.75){const q=55+rnd()*110;s+=`<rect x="${(rnd()*(w-q))|0}" y="${(rnd()*(h-q)*.8)|0}" width="${q|0}" height="${q|0}" fill="${pal[3]}" opacity="${(.7+rnd()*.3).toFixed(2)}"/>`}
+  else s+=`<rect x="${(w*(.15+rnd()*.6))|0}" y="0" width="${(7+rnd()*16)|0}" height="${h}" fill="${pal[3]}" opacity=".55"/>`;
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="placeholder">`+
+    `<defs><filter id="b${u}" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${(16+rnd()*22)|0}"/></filter>`+
+    `<filter id="g${u}"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter></defs>`+
+    `<rect width="${w}" height="${h}" fill="${pal[0]}"/>${s}<rect width="${w}" height="${h}" filter="url(#g${u})" opacity="0.07"/></svg>`;
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const artHTML=(w,i)=>w.src
+  ?`<img src="${esc(w.src)}" alt="${esc(w.title)}, ${w.year} — ${esc(w.medium)}" loading="lazy">`
+  :placeholderSVG(i,w.aspect);
+
+/* ---------- build the walls ---------- */
+const wallsEl=document.getElementById('walls');
+wallsEl.innerHTML=WALLS.map((grp,wi)=>
+  `<section class="wall" data-w="${wi}">`+
+  `<span class="rn" aria-hidden="true">${ROMAN[wi]}</span>`+
+  `<div class="linegrp">${grp.map(i=>{
+    const w=WORKS[i];
+    return `<div class="work" data-i="${i}" tabindex="0" role="button" aria-label="View ${esc(w.title)}">`+
+      `<div class="art">${artHTML(w,i)}</div>`+
+      `<div class="label"><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></div></div>`;
+  }).join('')}</div></section>`).join('');
+
+/* ---------- relative scale: one global px-per-inch for the whole site ---------- */
+const gapPx=()=>Math.max(48,innerWidth*.06);
+function ppi(){
+  const vw=innerWidth,vh=innerHeight;
+  if(vw<=640)return (vw*.78)/60;                 /* largest work spans ~78vw on phones */
+  let p=(vh*.5)/40;                              /* tallest work (40 in) ≈ half the screen */
+  WALLS.forEach(g=>{
+    const tot=g.reduce((s,i)=>s+WORKS[i].wIn,0);
+    p=Math.min(p,(vw*.8-(g.length-1)*gapPx())/tot);
+  });
+  return p;
+}
+function layout(){
+  const p=ppi();
+  document.querySelectorAll('.work').forEach(el=>{
+    el.querySelector('.art').style.width=(WORKS[+el.dataset.i].wIn*p).toFixed(1)+'px';
+  });
+  document.querySelectorAll('.linegrp').forEach(l=>l.style.gap=gapPx()+'px');
+}
+layout();
+addEventListener('resize',layout);
+
+/* ---------- wall counter ---------- */
+const counter=document.getElementById('counter');
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)counter.textContent=`${ROMAN[+e.target.dataset.w]} / ${ROMAN[WALLS.length-1]}`;});
+},{threshold:.55});
+document.querySelectorAll('.wall').forEach(s=>io.observe(s));
+
+/* ---------- filmstrip detail ---------- */
+const detail=document.getElementById('detail'),strip=document.getElementById('strip');
+strip.innerHTML=WORKS.map((w,i)=>
+  `<figure data-i="${i}"><div class="art">${artHTML(w,i)}</div>`+
+  `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></figcaption></figure>`).join('');
+function openDetail(i){
+  detail.classList.add('open');document.body.style.overflow='hidden';
+  const t=strip.children[i];
+  if(t)requestAnimationFrame(()=>{strip.scrollLeft=Math.max(0,t.offsetLeft-strip.getBoundingClientRect().left-8);
+    if(matchMedia('(max-width:640px)').matches)t.scrollIntoView({block:'start'});});
+}
+function closeDetail(){detail.classList.remove('open');document.body.style.overflow='';}
+document.getElementById('back').addEventListener('click',closeDetail);
+wallsEl.addEventListener('click',e=>{const f=e.target.closest('.work');if(f)openDetail(+f.dataset.i);});
+wallsEl.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const f=e.target.closest('.work');if(f){e.preventDefault();openDetail(+f.dataset.i);}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&detail.classList.contains('open'))closeDetail();});
+strip.addEventListener('wheel',e=>{
+  if(matchMedia('(max-width:640px)').matches)return;
+  if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();strip.scrollLeft+=e.deltaY;}
+},{passive:false});
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mattie Chernos</title>
+<meta name="description" content="Paintings by Mattie Chernos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F2EFE8'/%3E%3Crect x='0' y='0' width='6' height='32' fill='%23111'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2EFE8;
+  --ink:#111;
+  --soft:rgba(17,17,17,.55);
+  --line:rgba(17,17,17,.16);
+  --serif:'EB Garamond',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{margin:0;background:var(--paper);color:var(--ink);font:12.5px/1.5 'Helvetica Neue',Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+
+#app{display:flex;height:100vh}
+
+/* ---- the spine: a fixed 130px rail holding every word on the site ---- */
+#spine{width:130px;flex:0 0 auto;border-right:1px solid var(--line);display:flex;flex-direction:column;
+  justify-content:space-between;padding:22px 16px;height:100%}
+.s-top .s-name{display:block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;line-height:1.4}
+.s-top nav{display:flex;flex-direction:column;gap:.6em;margin-top:1.6em;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.s-top nav a{opacity:.55}
+.s-top nav a:hover,.s-top nav a[aria-current]{opacity:1;text-decoration:underline;text-underline-offset:3px}
+
+.s-info{display:flex;flex-direction:column;gap:2px}
+.s-info .idx{font-size:10.5px;color:var(--soft);letter-spacing:.05em;margin-bottom:.6em}
+.s-info .t{font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.3}
+.s-info .m{font-size:10.5px;color:var(--soft);line-height:1.5;margin-top:.6em}
+
+.s-bottom{display:flex;flex-direction:column;gap:10px}
+.s-arrows{display:flex;justify-content:space-between;font-size:15px}
+.s-arrows button:hover{opacity:.5}
+.s-hint{font-size:9.5px;letter-spacing:.04em;color:var(--soft);line-height:1.5}
+
+/* ---- stage: the image runs completely to the edge, no margin at all ---- */
+#stage{flex:1;position:relative;overflow:hidden;cursor:pointer;background:#000}
+#frame{position:absolute;inset:0}
+#frame img,#frame svg{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s}
+#frame.fading img,#frame.fading svg{opacity:0}
+
+/* ---- about / contact swap the stage for plain text, spine keeps only name+nav ---- */
+.page{max-width:480px;margin:auto;padding:0 60px}
+.page h1{font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 1.4em;font-weight:700}
+.page p{margin:0 0 1.1em;font-size:15px;line-height:1.65;color:#e8e4da}
+.placeholder{font-style:italic;color:rgba(232,228,218,.5)}
+.contact-line a{border-bottom:1px solid rgba(232,228,218,.3)}
+#pagewrap{width:100%;height:100%;display:none;align-items:center;background:var(--paper);color:var(--ink)}
+#pagewrap.on{display:flex}
+#pagewrap .page p{color:var(--soft)}
+#pagewrap .contact-line a{border-bottom:1px solid var(--line);color:var(--ink)}
+#pagewrap .placeholder{color:var(--soft)}
+
+@media (max-width:640px){
+  #spine{width:96px;padding:16px 12px}
+  .s-info .t{font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <aside id="spine">
+    <div class="s-top">
+      <a class="s-name" href="#work">Mattie<br>Chernos</a>
+      <nav aria-label="Main">
+        <a href="#work" data-nav="work" aria-current="page">Work</a>
+        <a href="#about" data-nav="about">About</a>
+        <a href="#contact" data-nav="contact">Contact</a>
+      </nav>
+    </div>
+    <div class="s-info" id="s-info"></div>
+    <div class="s-bottom">
+      <div class="s-arrows"><button id="prev">←</button><button id="next">→</button></div>
+      <div class="s-hint">click image, or use arrow keys</div>
+    </div>
+  </aside>
+
+  <div id="stage">
+    <div id="frame"></div>
+  </div>
+
+  <div id="pagewrap">
+    <div class="page" id="page-content"></div>
+  </div>
+</div>
+
+<script>
+const WORKS = [
+  {title:'Untitled (Dusk)',      year:2025, medium:'oil on linen',  dims:'36 × 48 in', src:'1.png'},
+  {title:'Field IV',             year:2025, medium:'oil on canvas', dims:'40 × 30 in', src:'2.png'},
+  {title:'Interior with Chair',  year:2024, medium:'oil on panel',  dims:'24 × 24 in', src:'3.png'},
+  {title:'Still Water',          year:2024, medium:'oil on linen',  dims:'48 × 36 in', src:'4.png'},
+  {title:'The Yellow Room',      year:2024, medium:'oil on canvas', dims:'30 × 40 in', src:'5.png'},
+  {title:'Harbour, Evening',     year:2023, medium:'oil on linen',  dims:'60 × 40 in', src:'6.png'},
+  {title:'Two Figures',          year:2023, medium:'oil on panel',  dims:'20 × 24 in', src:'7.png'},
+  {title:'Study in Umber',       year:2023, medium:'oil on paper',  dims:'15 × 22 in', src:'8.png'},
+  {title:'Late Snow',            year:2022, medium:'oil on canvas', dims:'36 × 36 in', src:'9.png'},
+  {title:'Vessel',               year:2022, medium:'oil on linen',  dims:'28 × 34 in', src:'10.png'}
+];
+
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const PALETTES=[['#dcd6c8','#a8552f','#3f4a3c','#c9b47a'],['#e8e4da','#33506b','#b0b7ad','#8a3324'],
+['#efe9df','#c67f43','#7d8ca3','#4a4238'],['#e5dfd2','#606c5a','#d1a05a','#2f2b26'],['#ece7de','#95542e','#c8bfae','#40556e']];
+function placeholderSVG(i,[aw,ah]){
+  const rnd=mulberry32(11+i*97), pal=PALETTES[i%PALETTES.length];
+  const w=900,h=Math.round(900*ah/aw),u='p'+i,hy=h*(.42+rnd()*.32);
+  let s=`<rect x="0" y="${hy|0}" width="${w}" height="${(h-hy)|0}" fill="${pal[1]}" opacity="${(.82+rnd()*.18).toFixed(2)}"/>`;
+  s+=`<ellipse cx="${(rnd()*w)|0}" cy="${(hy+(rnd()-.5)*h*.3)|0}" rx="${(w*(.16+rnd()*.26))|0}" ry="${(w*(.12+rnd()*.2))|0}" fill="${pal[2]}" opacity="${(.45+rnd()*.35).toFixed(2)}" filter="url(#b${u})"/>`;
+  const k=rnd();
+  if(k<.4)s+=`<rect x="${(w*.08)|0}" y="${(hy-(6+rnd()*40))|0}" width="${(w*.84)|0}" height="${(5+rnd()*11)|0}" fill="${pal[3]}" opacity=".9"/>`;
+  else if(k<.75){const q=55+rnd()*110;s+=`<rect x="${(rnd()*(w-q))|0}" y="${(rnd()*(h-q)*.8)|0}" width="${q|0}" height="${q|0}" fill="${pal[3]}" opacity="${(.7+rnd()*.3).toFixed(2)}"/>`}
+  else s+=`<rect x="${(w*(.15+rnd()*.6))|0}" y="0" width="${(7+rnd()*16)|0}" height="${h}" fill="${pal[3]}" opacity=".55"/>`;
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="placeholder">`+
+    `<defs><filter id="b${u}" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${(16+rnd()*22)|0}"/></filter>`+
+    `<filter id="g${u}"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter></defs>`+
+    `<rect width="${w}" height="${h}" fill="${pal[0]}"/>${s}<rect width="${w}" height="${h}" filter="url(#g${u})" opacity="0.07"/></svg>`;
+}
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function artHTML(w,i){ return w.src ? `<img src="${esc(w.src)}" alt="${esc(w.title)}" loading="lazy">` : placeholderSVG(i,w.aspect); }
+
+let cur = 0;
+function paintWork(){
+  const w = WORKS[cur];
+  const fr = $('#frame');
+  fr.classList.add('fading');
+  setTimeout(()=>{ fr.innerHTML = artHTML(w,cur); fr.classList.remove('fading'); }, 180);
+  $('#s-info').innerHTML = `<div class="idx">${String(cur+1).padStart(2,'0')} / ${String(WORKS.length).padStart(2,'0')}</div>`+
+    `<div class="t">${esc(w.title)}</div>`+
+    `<div class="m">${w.year}<br>${esc(w.medium)}<br>${w.dims}</div>`;
+}
+function go(n){ cur = (cur+n+WORKS.length)%WORKS.length; paintWork(); }
+$('#stage').addEventListener('click', ()=> go(1));
+$('#prev').addEventListener('click', e=>{ e.stopPropagation(); go(-1); });
+$('#next').addEventListener('click', e=>{ e.stopPropagation(); go(1); });
+document.addEventListener('keydown', e=>{
+  if(location.hash.replace('#','') !== 'work' && location.hash !== '') return;
+  if(e.key==='ArrowRight') go(1);
+  if(e.key==='ArrowLeft') go(-1);
+});
+paintWork();
+
+/* ---- routing ---- */
+const PAGES = {
+  about: `<h1>About</h1><p class="placeholder">(Bio to come: two or three short paragraphs about Mattie, the work, and the studio practice.)</p><p class="placeholder">(A note on materials and process can sit here maybe.)</p>`,
+  contact: `<h1>Contact</h1><p class="contact-line"><a href="mailto:studio@mattiechernos.com">studio@mattiechernos.com</a></p><p class="placeholder" style="margin-top:1.6em">Studio visits and inquiries welcome.</p>`
+};
+function route(){
+  const page = location.hash.replace('#','') || 'work';
+  const isWork = page === 'work';
+  $('#pagewrap').classList.toggle('on', !isWork);
+  if(!isWork) $('#page-content').innerHTML = PAGES[page] || PAGES.about;
+  document.querySelectorAll('.s-top nav a').forEach(a=>{
+    if(a.dataset.nav===page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+  });
+}
+window.addEventListener('hashchange',route); route();
+</script>
+</body>
+</html>
