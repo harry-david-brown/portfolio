@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mattie Chernos</title><!-- Prototype 12 · Drift II -->
+<meta name="description" content="Paintings by Mattie Chernos. Selected works, exhibitions, and studio contact.">
+<meta property="og:title" content="Mattie Chernos">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://harry-david-brown.github.io/portfolio/12.html">
+<meta property="og:image" content="https://harry-david-brown.github.io/portfolio/1.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E5E0D6'/%3E%3Crect x='8' y='10' width='16' height='12' fill='%2328251F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@400;500&family=Libre+Baskerville&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens ============ */
+:root{
+  --wall:#E5E0D6;               /* pale greige, house-wall neutral */
+  --ink:#28251F;
+  --soft:rgba(40,37,31,.55);
+  --line:rgba(40,37,31,.16);
+  --pad:56px;
+  --track:.13em;
+  --serif:'EB Garamond',Georgia,serif;
+  --fs:1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--wall);color:var(--ink);font:400 calc(16px*var(--fs))/1.55 var(--serif)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+svg,img{display:block}
+
+/* ============ header ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:baseline;
+  gap:24px;padding:30px var(--pad) 26px;
+  background:linear-gradient(var(--wall) 40%,transparent)}
+.name{font-size:calc(19px*var(--fs));font-weight:500;letter-spacing:var(--track);text-transform:uppercase;white-space:nowrap}
+nav{display:flex;gap:2.4em;font-size:calc(12.5px*var(--fs));letter-spacing:var(--track);text-transform:uppercase}
+nav a{opacity:.8;padding-bottom:3px;border-bottom:1px solid transparent}
+nav a:hover{opacity:1}
+nav a.on{opacity:1;border-bottom-color:var(--ink)}
+
+/* ============ drifting columns ============ */
+main{padding:150px var(--pad) 0}
+#cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0 36px}
+.col{display:flex;flex-direction:column;gap:52px;will-change:transform}
+.col:nth-child(2){padding-top:16vh}
+.col:nth-child(3){padding-top:7vh}
+.col figure{margin:0;cursor:pointer}
+.col figure:nth-child(odd){width:87%}
+.col figure:nth-child(even){width:96%;align-self:flex-end}
+.art{line-height:0;background:#FBF8F1;padding:7px;
+  box-shadow:0 1px 2px rgba(40,37,31,.18),0 16px 36px -16px rgba(40,37,31,.36),inset 0 0 0 1px rgba(40,37,31,.1)}
+.col figure:hover .art{box-shadow:0 1px 2px rgba(40,37,31,.2),0 22px 46px -16px rgba(40,37,31,.44),inset 0 0 0 1px rgba(40,37,31,.1)}
+.art>*{width:100%;height:auto}
+figcaption{margin-top:.8em;font-size:calc(12.5px*var(--fs));line-height:1.5;letter-spacing:.02em;
+  display:flex;flex-direction:column;gap:1px;opacity:0;transition:opacity .25s}
+.col figure:hover figcaption,.col figure:focus-within figcaption{opacity:1}
+figcaption .meta{color:var(--soft)}
+#drift-space{height:24vh}   /* room for the lagging column to settle */
+
+/* ============ about / contact ============ */
+.page{max-width:calc(560px + var(--pad)*2);margin:0 auto;padding:16vh var(--pad) 6vh}
+.page h1{font-size:calc(19px*var(--fs));font-weight:500;letter-spacing:var(--track);text-transform:uppercase;margin:0 0 1.4em}
+.page p{margin:0 0 1.1em;font-size:calc(17px*var(--fs))}
+.placeholder{font-style:italic;color:var(--soft)}
+.cv{margin-top:2.4em;border-top:1px solid var(--line);padding-top:1.6em}
+.cv h2{font-size:calc(12.5px*var(--fs));font-weight:500;letter-spacing:var(--track);text-transform:uppercase;margin:0 0 1em;color:var(--soft)}
+.cv-row{display:flex;gap:2em;padding:.45em 0;border-bottom:1px solid var(--line);font-size:calc(15px*var(--fs))}
+.cv-row span:first-child{flex:0 0 3.2em;color:var(--soft)}
+.contact-line{font-size:calc(17px*var(--fs));margin-bottom:.6em}
+.contact-line a{border-bottom:1px solid var(--line)}
+.contact-line a:hover{border-bottom-color:var(--ink)}
+footer{padding:40px var(--pad) 60px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:calc(12px*var(--fs));letter-spacing:.05em;color:var(--soft)}
+
+/* ============ filmstrip detail overlay ============ */
+#detail{position:fixed;inset:0;z-index:60;background:var(--wall);display:none;flex-direction:column;
+  padding:96px var(--pad) 0}
+#detail.open{display:flex}
+.backrow{padding:0 0 20px;font-size:calc(12.5px*var(--fs));letter-spacing:var(--track);text-transform:uppercase}
+.backrow button{opacity:.65;border-bottom:1px solid currentColor;padding-bottom:2px;letter-spacing:inherit;text-transform:inherit}
+.backrow button:hover{opacity:1}
+.strip{flex:1;display:flex;gap:48px;overflow-x:auto;align-items:center;
+  padding:8px 4px 46px;scrollbar-width:thin;scroll-behavior:smooth}
+.strip figure{margin:0;flex:0 0 auto}
+.strip .art>*{width:auto;height:min(60vh,680px);max-width:86vw}
+.strip figcaption{opacity:1}
+
+
+/* ================= background picker (prototype only) ================= */
+#bgpicker{position:fixed;right:20px;bottom:20px;z-index:50;display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(8px);border:1px solid var(--line);
+  border-radius:999px;padding:7px 14px 7px 7px;box-shadow:0 6px 20px rgba(46,42,36,.16)}
+#bgpicker label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+#bgpicker input[type=color]{width:26px;height:26px;border:0;padding:0;background:none;cursor:pointer;
+  border-radius:50%;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(46,42,36,.15)}
+#bgpicker input[type=color]::-webkit-color-swatch-wrapper{padding:0;border-radius:50%}
+#bgpicker input[type=color]::-webkit-color-swatch{border:0;border-radius:50%}
+#bgpicker input[type=color]::-moz-color-swatch{border:0;border-radius:50%}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html,.strip{scroll-behavior:auto}}
+
+
+/* ================= mobile preview (prototype only) ================= */
+#bgpicker{z-index:70}
+#mob-btn{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;white-space:nowrap}
+#mob-btn:hover,#mob-btn.on{opacity:1}
+.picker-sep{width:1px;height:18px;background:rgba(0,0,0,.15)}
+#mob-overlay{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(20,18,15,.42)}
+#mob-overlay.open{display:flex}
+#mob-phone{width:390px;max-width:94vw;height:min(780px,90vh);background:#141414;border-radius:34px;padding:10px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+#mob-phone iframe{width:100%;height:100%;border:0;border-radius:24px;background:#fff}
+#font-input{background:none;border:0;font-size:11.5px;letter-spacing:.02em;color:inherit;cursor:pointer;max-width:112px;font-family:inherit}
+#fs-input{width:64px;accent-color:var(--ink)}
+html.in-frame #bgpicker,html.in-frame #mob-overlay{display:none!important}
+
+/* ============ small screens ============ */
+@media (max-width:900px){
+  #cols{gap:0 26px}
+  .col{gap:44px}
+}
+@media (max-width:640px){
+  :root{--pad:22px}
+  header{flex-direction:column;gap:12px;align-items:flex-start;padding-top:20px}
+  main{padding-top:120px}
+  #cols{grid-template-columns:1fr}
+  .col{gap:48px}
+  .col:nth-child(n){padding-top:0;transform:none!important}
+  .col:nth-child(2),.col:nth-child(3){display:flex}
+  .col figure:nth-child(n){width:100%;align-self:auto;cursor:default}
+  figcaption{opacity:1}
+  #drift-space{height:0}
+  #detail{padding-top:84px}
+  .strip{flex-direction:column;align-items:flex-start;overflow-x:visible;overflow-y:auto}
+  .strip .art>*{width:100%;height:auto;max-width:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="name" href="#top">Mattie Chernos</a>
+  <nav aria-label="Main">
+    <a href="#top" class="on">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div id="cols" aria-label="Selected works"></div>
+  <div id="drift-space" aria-hidden="true"></div>
+
+  <section id="about" class="page">
+    <h1>About</h1>
+    <p class="placeholder">(Bio to come: two or three short paragraphs about Mattie, the work, and the studio practice.)</p>
+    <p class="placeholder">(A note on materials and process can sit here maybe)</p>
+    <div class="cv">
+      <h2>Selected exhibitions</h2>
+      <div class="cv-row"><span>2026</span><span class="placeholder">(Exhibition title, venue, city)</span></div>
+      <div class="cv-row"><span>2025</span><span class="placeholder">(Exhibition title, venue, city)</span></div>
+      <div class="cv-row"><span>2024</span><span class="placeholder">(Exhibition title, venue, city)</span></div>
+    </div>
+  </section>
+
+  <section id="contact" class="page">
+    <h1>Contact</h1>
+    <p class="contact-line"><a href="mailto:studio@mattiechernos.com">studio@mattiechernos.com</a></p>
+    <p class="contact-line"><a href="https://instagram.com/" rel="noopener">Instagram</a></p>
+    <p class="placeholder" style="margin-top:1.6em">Studio visits and inquiries welcome.</p>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Mattie Chernos</span>
+  <span></span>
+</footer>
+
+<div id="bgpicker">
+  <label for="bg-input">Wall</label>
+  <input type="color" id="bg-input" value="#E5E0D6" aria-label="Background color">
+  <span class="picker-sep" aria-hidden="true"></span>
+  <select id="font-input" aria-label="Typeface">
+    <option value="'EB Garamond',Georgia,serif" selected>EB Garamond</option>
+    <option value="Georgia,'Times New Roman',serif">Georgia</option>
+    <option value="'Cormorant Garamond','EB Garamond',serif">Cormorant</option>
+    <option value="'Libre Baskerville',Georgia,serif">Baskerville</option>
+    <option value="'Inter',Helvetica,Arial,sans-serif">Inter (sans)</option>
+  </select>
+  <span class="picker-sep" aria-hidden="true"></span>
+  <input type="range" id="fs-input" min="0.85" max="1.2" step="0.01" value="1" aria-label="Text size">
+  <span class="picker-sep" aria-hidden="true"></span>
+  <button type="button" id="mob-btn" aria-pressed="false">Mobile</button>
+</div>
+<div id="mob-overlay" aria-hidden="true">
+  <div id="mob-phone"><iframe id="mob-frame" title="Mobile preview"></iframe></div>
+</div>
+
+
+<div id="detail" role="dialog" aria-label="Work detail" aria-modal="true">
+  <div class="backrow"><button id="back" type="button">← All works</button></div>
+  <div class="strip" id="strip"></div>
+</div>
+
+<script>
+/* ================= works data =================
+   Replace src:null with the real photograph path and
+   the generated placeholder disappears automatically. */
+const WORKS = [
+  {title:'Untitled (Dusk)',      year:2025, medium:'oil on linen',  dims:'36 × 48 in', src:'1.png'},
+  {title:'Field IV',             year:2025, medium:'oil on canvas', dims:'40 × 30 in', src:'2.png'},
+  {title:'Interior with Chair',  year:2024, medium:'oil on panel',  dims:'24 × 24 in', src:'3.png'},
+  {title:'Still Water',          year:2024, medium:'oil on linen',  dims:'48 × 36 in', src:'4.png'},
+  {title:'The Yellow Room',      year:2024, medium:'oil on canvas', dims:'30 × 40 in', src:'5.png'},
+  {title:'Harbour, Evening',     year:2023, medium:'oil on linen',  dims:'60 × 40 in', src:'6.png'},
+  {title:'Two Figures',          year:2023, medium:'oil on panel',  dims:'20 × 24 in', src:'7.png'},
+  {title:'Study in Umber',       year:2023, medium:'oil on paper',  dims:'15 × 22 in', src:'8.png'},
+  {title:'Late Snow',            year:2022, medium:'oil on canvas', dims:'36 × 36 in', src:'9.png'}
+];
+
+/* ---------- placeholder painting generator (delete once real images exist) ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const PALETTES=[['#dcd6c8','#a8552f','#3f4a3c','#c9b47a'],['#e8e4da','#33506b','#b0b7ad','#8a3324'],
+['#efe9df','#c67f43','#7d8ca3','#4a4238'],['#e5dfd2','#606c5a','#d1a05a','#2f2b26'],['#ece7de','#95542e','#c8bfae','#40556e']];
+function placeholderSVG(i,[aw,ah]){
+  const rnd=mulberry32(11+i*97),pal=PALETTES[i%PALETTES.length];
+  const w=900,h=Math.round(900*ah/aw),u='p'+i,hy=h*(.42+rnd()*.32);
+  let s=`<rect x="0" y="${hy|0}" width="${w}" height="${(h-hy)|0}" fill="${pal[1]}" opacity="${(.82+rnd()*.18).toFixed(2)}"/>`;
+  s+=`<ellipse cx="${(rnd()*w)|0}" cy="${(hy+(rnd()-.5)*h*.3)|0}" rx="${(w*(.16+rnd()*.26))|0}" ry="${(w*(.12+rnd()*.2))|0}" fill="${pal[2]}" opacity="${(.45+rnd()*.35).toFixed(2)}" filter="url(#b${u})"/>`;
+  const k=rnd();
+  if(k<.4)s+=`<rect x="${(w*.08)|0}" y="${(hy-(6+rnd()*40))|0}" width="${(w*.84)|0}" height="${(5+rnd()*11)|0}" fill="${pal[3]}" opacity=".9"/>`;
+  else if(k<.75){const q=55+rnd()*110;s+=`<rect x="${(rnd()*(w-q))|0}" y="${(rnd()*(h-q)*.8)|0}" width="${q|0}" height="${q|0}" fill="${pal[3]}" opacity="${(.7+rnd()*.3).toFixed(2)}"/>`}
+  else s+=`<rect x="${(w*(.15+rnd()*.6))|0}" y="0" width="${(7+rnd()*16)|0}" height="${h}" fill="${pal[3]}" opacity=".55"/>`;
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="placeholder">`+
+    `<defs><filter id="b${u}" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${(16+rnd()*22)|0}"/></filter>`+
+    `<filter id="g${u}"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter></defs>`+
+    `<rect width="${w}" height="${h}" fill="${pal[0]}"/>${s}<rect width="${w}" height="${h}" filter="url(#g${u})" opacity="0.07"/></svg>`;
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const artHTML=(w,i)=>w.src
+  ?`<img src="${esc(w.src)}" alt="${esc(w.title)}, ${w.year} — ${esc(w.medium)}" loading="lazy">`
+  :placeholderSVG(i,w.aspect);
+const figHTML=(w,i)=>
+  `<figure data-i="${i}" tabindex="0" role="button" aria-label="View ${esc(w.title)}">`+
+  `<div class="art">${artHTML(w,i)}</div>`+
+  `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></figcaption></figure>`;
+
+/* ---------- distribute works across the columns ---------- */
+const colsEl=document.getElementById('cols');
+let cols=[], nCols=0;
+function buildCols(){
+  const n=innerWidth<=640?1:3;
+  if(n===nCols)return;
+  nCols=n;
+  const buckets=Array.from({length:n},()=>[]);
+  WORKS.forEach((w,i)=>buckets[i%n].push(i));
+  colsEl.style.gridTemplateColumns=`repeat(${n},1fr)`;
+  colsEl.innerHTML=buckets.map(b=>`<div class="col">${b.map(i=>figHTML(WORKS[i],i)).join('')}</div>`).join('');
+  cols=[...colsEl.querySelectorAll('.col')];
+}
+buildCols();
+addEventListener('resize',buildCols);
+
+/* ---------- the drift: columns lag / lead the scroll slightly ---------- */
+const K=[0.045,-0.05,0.02], MAX=150;   /* px offset per px scrolled, clamped */
+const still=matchMedia('(prefers-reduced-motion:reduce)');
+let ticking=false;
+function drift(){
+  ticking=false;
+  if(still.matches||innerWidth<=640){cols.forEach(c=>c.style.transform='');return;}
+  const sy=scrollY;
+  cols.forEach((c,i)=>{
+    const d=Math.max(-MAX,Math.min(MAX,sy*K[i]));
+    c.style.transform=`translate3d(0,${d.toFixed(1)}px,0)`;
+  });
+}
+addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(drift);}},{passive:true});
+addEventListener('resize',drift);
+drift();
+
+
+/* scroll the strip to work i, re-pinning as lazy images above it load in */
+function scrollToWork(i){
+  const strip=document.getElementById('strip'), t=strip.children[i];
+  if(!t)return;
+  const go=()=>{
+    if(matchMedia('(max-width:640px)').matches){ t.scrollIntoView({block:'start'}); }
+    else{ strip.scrollLeft=Math.max(0,t.offsetLeft-strip.getBoundingClientRect().left-8); }
+  };
+  requestAnimationFrame(go);
+  for(let k=0;k<=i;k++){
+    const img=strip.children[k]&&strip.children[k].querySelector('img');
+    if(img&&!img.complete)img.addEventListener('load',go,{once:true});
+  }
+}
+
+/* ---------- filmstrip detail ---------- */
+const detail=document.getElementById('detail'),strip=document.getElementById('strip');
+strip.innerHTML=WORKS.map((w,i)=>
+  `<figure><div class="art">${artHTML(w,i)}</div>`+
+  `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></figcaption></figure>`).join('');
+function openDetail(i){
+  detail.classList.add('open');document.body.style.overflow='hidden';
+  scrollToWork(i);
+}
+function closeDetail(){detail.classList.remove('open');document.body.style.overflow='';}
+document.getElementById('back').addEventListener('click',closeDetail);
+colsEl.addEventListener('click',e=>{if(matchMedia('(max-width:640px)').matches)return;const f=e.target.closest('figure');if(f)openDetail(+f.dataset.i);});
+colsEl.addEventListener('keydown',e=>{
+  if(matchMedia('(max-width:640px)').matches)return;
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const f=e.target.closest('figure');if(f){e.preventDefault();openDetail(+f.dataset.i);}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&detail.classList.contains('open'))closeDetail();});
+strip.addEventListener('wheel',e=>{
+  if(matchMedia('(max-width:640px)').matches)return;
+  if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();strip.scrollLeft+=e.deltaY;}
+},{passive:false});
+
+
+
+/* prototype tools — wall colour, typeface, text size, mobile preview (not part of the final site) */
+(function(){
+  const root=document.documentElement;
+  if(window.self!==window.top)root.classList.add('in-frame');
+  const bg=document.getElementById('bg-input'),ft=document.getElementById('font-input'),fsi=document.getElementById('fs-input');
+  const ov=document.getElementById('mob-overlay'),fr=document.getElementById('mob-frame'),btn=document.getElementById('mob-btn');
+  function apply(d){
+    if(d.wall)root.style.setProperty('--wall',d.wall);
+    if(d.font)root.style.setProperty('--serif',d.font);
+    if(d.fs)root.style.setProperty('--fs',d.fs);
+  }
+  const stateOf=()=>({wall:bg.value,font:ft.value,fs:fsi.value});
+  function send(){if(ov.classList.contains('open')){try{fr.contentWindow.postMessage(stateOf(),'*')}catch(_){}}}
+  addEventListener('message',e=>{if(e.data&&(e.data.wall||e.data.font||e.data.fs))apply(e.data)});
+  [bg,ft,fsi].forEach(el=>el.addEventListener('input',()=>{apply(stateOf());send();}));
+  function openMob(){fr.src=location.href;ov.classList.add('open');btn.classList.add('on');btn.setAttribute('aria-pressed','true');}
+  function closeMob(){ov.classList.remove('open');btn.classList.remove('on');btn.setAttribute('aria-pressed','false');fr.src='about:blank';}
+  btn.addEventListener('click',()=>ov.classList.contains('open')?closeMob():openMob());
+  ov.addEventListener('click',e=>{if(e.target===ov)closeMob();});
+  fr.addEventListener('load',()=>{try{fr.contentWindow.postMessage(stateOf(),'*')}catch(_){}});
+})();
+</script>
+</body>
+</html>
