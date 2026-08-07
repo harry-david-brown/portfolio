@@ -75,6 +75,11 @@ img{display:block}
 .f input[disabled]{background:var(--wall);color:var(--soft)}
 .f.money input{font-variant-numeric:tabular-nums}
 
+.saletag{grid-column:1/-1;font-size:11px;letter-spacing:.03em;padding-top:1px}
+.saletag.live{color:#3f6b3f}
+.saletag.warn{color:#8a6d1f}
+.saletag.off{color:var(--soft)}
+
 .rowside{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex:0 0 auto}
 .filebtn{position:relative;overflow:hidden}
 .filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
@@ -108,7 +113,7 @@ img{display:block}
 <script src="https://unpkg.com/@babel/standalone@7/babel.min.js" crossorigin></script>
 
 <script type="text/babel" data-presets="react">
-/* admin · build 2026-07-24-a
+/* admin · build 2026-08-07-a
  *
  * Two modes, chosen at load:
  *   api    — api.php answered. Sign in, save straight to works.json, upload images.
@@ -142,7 +147,7 @@ async function api(action, opts) {
 
 let uid = 0;
 const withUid = w => Object.assign({
-  title: '', year: '', medium: '', dims: '', src: '', master: '',
+  title: '', year: '', medium: '', dims: '', src: '', master: '', aspect: [4, 5],
   price: null, status: 'available', stripe_link: '', drop: null
 }, w, {_uid: ++uid});
 
@@ -185,6 +190,16 @@ async function resizeToJpeg(file) {
 
 const slugify = name => (name.replace(/\.[^.]+$/, '').toLowerCase()
   .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'work');
+
+/* what a visitor actually sees on the public site for this row right now —
+   keeps "is the Buy button live" answerable at a glance while editing. */
+function saleState(w) {
+  if (w.status === 'sold') return {cls: 'off', text: 'Shown as Sold on the site.'};
+  if (w.status === 'nfs') return {cls: 'off', text: 'Displayed, no price or Buy button (not for sale).'};
+  if (w.price === null || w.price === undefined) return {cls: 'warn', text: 'Available, but no price set — nothing shows yet.'};
+  if (!w.stripe_link) return {cls: 'warn', text: 'Price shows ($' + centsToStr(w.price) + '), no Buy button until a Stripe link is added.'};
+  return {cls: 'live', text: 'Buy button is live at $' + centsToStr(w.price) + '.'};
+}
 
 /* ---------------------------------------------------------------- one row */
 function WorkRow(props) {
@@ -295,6 +310,8 @@ function WorkRow(props) {
             onChange={e => set({stripe_link: e.target.value})}
           />
         </div>
+
+        <div className={'saletag ' + saleState(w).cls}>{saleState(w).text}</div>
 
         {advanced &&
           <div className="adv">

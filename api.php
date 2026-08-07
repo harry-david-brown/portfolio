@@ -124,6 +124,13 @@ if ($action === 'save' && $post) {
         $price = (isset($w['price']) && $w['price'] !== null && $w['price'] !== '')
             ? max(0, (int)$w['price'])                      // integer cents
             : null;
+        // placeholder aspect ratio [w,h] — only kept while src is empty; two positive numbers or fall back
+        $aspect = [4, 5];
+        if (isset($w['aspect']) && is_array($w['aspect']) && count($w['aspect']) === 2) {
+            $aw = (float)$w['aspect'][0];
+            $ah = (float)$w['aspect'][1];
+            if ($aw > 0 && $ah > 0) $aspect = [$aw, $ah];
+        }
         $clean[] = [
             'title'       => $title,
             'year'        => isset($w['year']) && $w['year'] !== '' ? (int)$w['year'] : '',
@@ -131,6 +138,7 @@ if ($action === 'save' && $post) {
             'dims'        => isset($w['dims']) ? trim((string)$w['dims']) : '',
             'src'         => $src,
             'master'      => isset($w['master']) ? trim((string)$w['master']) : '',
+            'aspect'      => $aspect,
             'price'       => $price,
             'status'      => $status,
             'stripe_link' => isset($w['stripe_link']) ? trim((string)$w['stripe_link']) : '',

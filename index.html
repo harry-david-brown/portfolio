@@ -63,6 +63,12 @@ figcaption{margin-top:.8em;font-size:calc(12.5px*var(--fs));line-height:1.5;lett
   display:flex;flex-direction:column;gap:1px;opacity:0;transition:opacity .25s}
 .col figure:hover figcaption,.col figure:focus-within figcaption{opacity:1}
 figcaption .meta{color:var(--soft)}
+figcaption .sale{margin-top:.35em;display:flex;align-items:center;gap:.7em}
+figcaption .price{color:var(--ink)}
+figcaption .tag{color:var(--soft);font-style:italic}
+figcaption .buy{display:inline-block;padding:3px 11px;border:1px solid var(--ink);border-radius:999px;
+  font-size:calc(11px*var(--fs));letter-spacing:.08em;text-transform:uppercase;transition:background .15s,color .15s}
+figcaption .buy:hover{background:var(--ink);color:var(--wall)}
 #drift-space{height:24vh}   /* room for the lagging column to settle */
  
 /* ============ about / contact ============ */
@@ -316,10 +322,22 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const artHTML=(w,i)=>w.src
   ?`<img src="${esc(w.src)}" alt="${esc(w.title)}, ${w.year} — ${esc(w.medium)}" loading="lazy">`
   :placeholderSVG(i,w.aspect);
+
+/* price + availability, shown under the caption meta line.
+   available+price → price, plus a Buy button once a Stripe link exists.
+   sold → "Sold" tag. nfs → nothing extra (piece still displays, just no sale info). */
+const fmtPrice=c=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:c%100?2:0}).format(c/100);
+function saleHTML(w){
+  if(w.status==='sold')return `<span class="sale"><span class="tag">Sold</span></span>`;
+  if(w.status!=='available'||typeof w.price!=='number')return '';
+  const price=`<span class="price">${fmtPrice(w.price)}</span>`;
+  const buy=w.stripe_link?`<a class="buy" href="${esc(w.stripe_link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Buy</a>`:'';
+  return `<span class="sale">${price}${buy}</span>`;
+}
 const figHTML=(w,i)=>
   `<figure data-i="${i}"${w.drop?` style="margin-top:${w.drop}"`:''} tabindex="0" role="button" aria-label="View ${esc(w.title)}">`+
   `<div class="art">${artHTML(w,i)}</div>`+
-  `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></figcaption></figure>`;
+  `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span>${saleHTML(w)}</figcaption></figure>`;
  
 /* ---------- distribute works across the columns ---------- */
 const colsEl=document.getElementById('cols');
@@ -373,7 +391,7 @@ const detail=document.getElementById('detail'),strip=document.getElementById('st
 function buildStrip(){
   strip.innerHTML=WORKS.map((w,i)=>
     `<figure><div class="art">${artHTML(w,i)}</div>`+
-    `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></figcaption></figure>`).join('');
+    `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span>${saleHTML(w)}</figcaption></figure>`).join('');
 }
 function openDetail(i){
   detail.classList.add('open');document.body.style.overflow='hidden';
@@ -402,7 +420,7 @@ function sizeSoloArt(){
 function renderSolo(){
   const w=WORKS[soloI];
   soloFig.innerHTML=`<div class="art">${artHTML(w,soloI)}</div>`+
-    `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span></figcaption>`;
+    `<figcaption><span>${esc(w.title)}</span><span class="meta">${w.year} — ${esc(w.medium)}, ${w.dims}</span>${saleHTML(w)}</figcaption>`;
   const el=soloFig.querySelector('.art > *');
   if(el&&el.tagName==='IMG'&&!el.complete)el.addEventListener('load',sizeSoloArt,{once:true});
   sizeSoloArt();
@@ -436,7 +454,7 @@ strip.addEventListener('wheel',e=>{
  
  
 /* prototype tools — wall colour, typeface, text size, mobile preview (not part of the final site) */
-console.log('mattie-16 · build 2026-07-24-a · works.json fetch');
+console.log('mattie-17 · build 2026-08-07-a · works.json fetch + price/Buy rendering');
 (function(){
   const root=document.documentElement;
   if(window.self!==window.top)root.classList.add('in-frame');

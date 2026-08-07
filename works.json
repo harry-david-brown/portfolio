@@ -1,144 +1,784 @@
 [
     {
-        "title": "Untitled (Dusk)",
-        "year": 2025,
-        "medium": "oil on linen",
-        "dims": "36 × 48 in",
-        "src": "1.jpg",
-        "master": "",
-        "price": null,
-        "status": "available",
-        "stripe_link": "",
-        "drop": null
-    },
-    {
-        "title": "Untitled XI",
-        "year": 2022,
-        "medium": "oil on canvas",
-        "dims": "24 × 24 in",
-        "src": "11.jpg",
-        "master": "",
-        "price": 50000,
-        "status": "available",
-        "stripe_link": "",
-        "drop": "110px"
-    },
-    {
-        "title": "Field IV",
+        "title": "Nunhead Cemetary Path (London, England)",
         "year": 2025,
         "medium": "oil on canvas",
-        "dims": "40 × 30 in",
-        "src": "2.jpg",
+        "dims": "8 x 10 inches",
+        "src": "nunhead-cemetary-path-london-england.jpg",
         "master": "",
-        "price": null,
+        "aspect": [
+            8,
+            10
+        ],
+        "price": 25000,
+        "status": "sold",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Elterwater River (Lake District, England)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "12 x 12 inches",
+        "src": "elterwater-river-lake-district-england.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            12
+        ],
+        "price": 35000,
+        "status": "sold",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "House on a East Coast River (Nova Scotia, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "14 x 16 inches",
+        "src": "house-on-a-east-coast-river-nova-scotia-canada.jpg",
+        "master": "",
+        "aspect": [
+            14,
+            16
+        ],
+        "price": 30000,
+        "status": "sold",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Storm on Cambridge River (Cambridge, England)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "storm-on-cambridge-river-cambridge-england.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 25000,
+        "status": "sold",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Sunset Tree on the Sea (Nice, France)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "12 x 12 inches",
+        "src": "sunset-tree-on-the-sea-nice-france.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            12
+        ],
+        "price": 34500,
         "status": "available",
         "stripe_link": "",
         "drop": null
     },
     {
-        "title": "Interior with Chair",
+        "title": "Nighttime Street (Greece)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "nighttime-street-greece.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 32000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Grasmere Graveyard (Lake District, England)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "grasmere-graveyard-lake-district-england.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 32500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Icy Mountains (Rocky Mountains, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "9 x 12 inches",
+        "src": "icy-mountains-rocky-mountains-canada.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 29500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Gazebo at the Halifax Gardens (Halifax, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "10 x 10 inches",
+        "src": "gazebo-at-the-halifax-gardens-halifax-canada.jpg",
+        "master": "",
+        "aspect": [
+            10,
+            10
+        ],
+        "price": 29500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Cliffs of Dover (Dover, UK)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "8 x 10 inches",
+        "src": "cliffs-of-dover-dover-uk.jpg",
+        "master": "",
+        "aspect": [
+            8,
+            10
+        ],
+        "price": 26500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Yellow Sky and Mountains (Lake District, UK)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "yellow-sky-and-mountains-lake-district-uk.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 32500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Sailboats on Harbour (Nice, France)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "sailboats-on-harbour-nice-france.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 39500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Lighthouse Cabin (Gulf Islands, BC, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "lighthouse-cabin-gulf-islands-bc-canada.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 31500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Pink Sky Beach (Gulf Islands, BC, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "pink-sky-beach-gulf-islands-bc-canada.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 38500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Harbour from Above (Nice, France)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "harbour-from-above-nice-france.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 31000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Elterwater Dawn (Lake District, UK)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "elterwater-dawn-lake-district-uk.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 39000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Acropolis Garden (Athens, Greece)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "10 x 10 inches",
+        "src": "acropolis-garden-athens-greece.jpg",
+        "master": "",
+        "aspect": [
+            10,
+            10
+        ],
+        "price": 29000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Snowy Yellow Cabin (Kawarthas, Ontario, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 inches",
+        "src": "snowy-yellow-cabin-kawarthas-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 39500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Bridge Over Canal (Bruges, Beligium)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 inches",
+        "src": "bridge-over-canal-bruges-beligium.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 41500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Spring River (Ontario, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 inches",
+        "src": "spring-river-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 38500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Purple Waterfall (Rocky Mountains, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "purple-waterfall-rocky-mountains-canada.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 31500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Rainbow Sky (Banff, Alberta, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "rainbow-sky-banff-alberta-canada.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 38000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Red Sky on a Snowy Lake (Kawarthas, Ontario, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "12 x 12 inches",
+        "src": "red-sky-on-a-snowy-lake-kawarthas-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            12
+        ],
+        "price": 34500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Snowy Mountains at Night (Banff, Alberta, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas board",
+        "dims": "6 x 8 inches",
+        "src": "snowy-mountains-at-night-banff-alberta-canada.jpg",
+        "master": "",
+        "aspect": [
+            6,
+            8
+        ],
+        "price": 13500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Overcast River (Lake District, UK)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "6 x 8 inches",
+        "src": "overcast-river-lake-district-uk.jpg",
+        "master": "",
+        "aspect": [
+            6,
+            8
+        ],
+        "price": 13500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Quartz Mountains at Night (Killarney, Ontario, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "7 x 9 inches",
+        "src": "quartz-mountains-at-night-killarney-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            7,
+            9
+        ],
+        "price": 18000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Bruges Canal (Bruges, Belgium)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "10 x 10 inches",
+        "src": "bruges-canal-bruges-belgium.jpg",
+        "master": "",
+        "aspect": [
+            10,
+            10
+        ],
+        "price": 26500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Cloudy sky on Frozen Lake (Kawarthas, Ontario, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "8 x 10 inches",
+        "src": "cloudy-sky-on-frozen-lake-kawarthas-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            8,
+            10
+        ],
+        "price": 24500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Snowstorm in Blue (Kawarthas, Ontario, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "12 x 16 inches",
+        "src": "snowstorm-in-blue-kawarthas-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            16
+        ],
+        "price": 41500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Sailor's Delight (Halifax, Nova Scotia, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "12 x 16 inches",
+        "src": "sailor-s-delight-halifax-nova-scotia-canada.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            16
+        ],
+        "price": 42500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Tree Over Ruins (Monacco, Monacco)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "tree-over-ruins-monacco-monacco.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 39500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Prospect Park (Brooklyn, NY, USA)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "12 x 12 inches",
+        "src": "prospect-park-brooklyn-ny-usa.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            12
+        ],
+        "price": 32000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Stormy Yellow Sky Over Sea (Gulf Islands, BC, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "stormy-yellow-sky-over-sea-gulf-islands-bc-canada.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 39500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Purple Foothills (Alberta, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "purple-foothills-alberta-canada.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 32000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Autumn Bridge (Ontario, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "7 x 9 inches",
+        "src": "autumn-bridge-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            7,
+            9
+        ],
+        "price": 18500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Elora Gorge in Autumn (Elora, Ontario, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "7 x 9 inches",
+        "src": "elora-gorge-in-autumn-elora-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            7,
+            9
+        ],
+        "price": 18500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Blackcreek Pioneer Village Mill (North York, Ontario)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "7 x 9 inches",
+        "src": "blackcreek-pioneer-village-mill-north-york-ontario.jpg",
+        "master": "",
+        "aspect": [
+            7,
+            9
+        ],
+        "price": 18500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Rocky Ruins on the Sea (Nice, France)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "11 x 14 Inches",
+        "src": "rocky-ruins-on-the-sea-nice-france.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": null,
+        "status": "nfs",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Overcast River Avon (Bath, England)",
+        "year": 2026,
+        "medium": "oil on canvas",
+        "dims": "12 x 12 inches",
+        "src": "overcast-river-avon-bath-england.jpg",
+        "master": "",
+        "aspect": [
+            12,
+            12
+        ],
+        "price": 59500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Snowy Harbour Sunset (Kingston, Ontario, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "11 x 14 Inches",
+        "src": "snowy-harbour-sunset-kingston-ontario-canada.jpg",
+        "master": "",
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 55000,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Big Ben at Night (London, England)",
         "year": 2024,
-        "medium": "oil on panel",
-        "dims": "24 × 24 in",
-        "src": "3.jpg",
+        "medium": "acrylic and oil pastel on canvas",
+        "dims": "9 x 12 inches",
+        "src": "big-ben-at-night-london-england.jpg",
         "master": "",
-        "price": null,
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 29500,
         "status": "available",
         "stripe_link": "",
         "drop": null
     },
     {
-        "title": "Untitled XII",
-        "year": 2022,
-        "medium": "oil on canvas",
-        "dims": "48 × 36 in",
-        "src": "12.jpg",
+        "title": "Green Hills at Night (Ontario, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas board",
+        "dims": "11 x 14 Inches",
+        "src": "green-hills-at-night-ontario-canada.jpg",
         "master": "",
-        "price": null,
+        "aspect": [
+            11,
+            14
+        ],
+        "price": 36500,
         "status": "available",
         "stripe_link": "",
-        "drop": "110px"
+        "drop": null
     },
     {
-        "title": "Untitled XIII",
-        "year": 2022,
+        "title": "Killarney Mountains (Killarney, ON, Canada)",
+        "year": 2025,
         "medium": "oil on canvas",
-        "dims": "24 × 24 in",
-        "src": "13.jpg",
+        "dims": "8 x 10 inches",
+        "src": "killarney-mountains-killarney-on-canada.jpg",
         "master": "",
-        "price": null,
+        "aspect": [
+            8,
+            10
+        ],
+        "price": 26500,
         "status": "available",
         "stripe_link": "",
-        "drop": "110px"
+        "drop": null
     },
     {
-        "title": "Still Water",
+        "title": "Lavender Snow Storm (Kawarthas, ON, Canada",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "lavender-snow-storm-kawarthas-on-canada.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": null,
+        "status": "nfs",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Snowy Field in Mint (Kawarthas, ON, Canada)",
+        "year": 2025,
+        "medium": "oil on canvas",
+        "dims": "9 x 12 inches",
+        "src": "snowy-field-in-mint-kawarthas-on-canada.jpg",
+        "master": "",
+        "aspect": [
+            9,
+            12
+        ],
+        "price": null,
+        "status": "nfs",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Winter Moon (Kawarthas, ON, Canada)",
         "year": 2024,
-        "medium": "oil on linen",
-        "dims": "48 × 36 in",
-        "src": "4.jpg",
-        "master": "",
-        "price": null,
-        "status": "available",
-        "stripe_link": "",
-        "drop": null
-    },
-    {
-        "title": "The Yellow Room",
-        "year": 2024,
         "medium": "oil on canvas",
-        "dims": "30 × 40 in",
-        "src": "5.jpg",
+        "dims": "9 x 12 inches",
+        "src": "winter-moon-kawarthas-on-canada.jpg",
         "master": "",
-        "price": null,
+        "aspect": [
+            9,
+            12
+        ],
+        "price": 31500,
         "status": "available",
         "stripe_link": "",
         "drop": null
     },
     {
-        "title": "Harbour, Evening",
-        "year": 2023,
-        "medium": "oil on linen",
-        "dims": "60 × 40 in",
-        "src": "6.jpg",
+        "title": "Bow Falls in Winter (Banff, Alberta, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "11 x 14 Inches",
+        "src": "bow-falls-in-winter-banff-alberta-canada.jpg",
         "master": "",
+        "aspect": [
+            11,
+            14
+        ],
         "price": null,
-        "status": "available",
+        "status": "nfs",
         "stripe_link": "",
         "drop": null
     },
     {
-        "title": "Two Figures",
-        "year": 2023,
-        "medium": "oil on panel",
-        "dims": "20 × 24 in",
-        "src": "7.jpg",
-        "master": "",
-        "price": null,
-        "status": "available",
-        "stripe_link": "",
-        "drop": null
-    },
-    {
-        "title": "Study in Umber",
-        "year": 2023,
-        "medium": "oil on paper",
-        "dims": "15 × 22 in",
-        "src": "8.jpg",
-        "master": "",
-        "price": null,
-        "status": "available",
-        "stripe_link": "",
-        "drop": null
-    },
-    {
-        "title": "Late Snow",
-        "year": 2022,
+        "title": "Snowy Trees on the Harbour (Kingston, ON, Canada)",
+        "year": 2025,
         "medium": "oil on canvas",
-        "dims": "36 × 36 in",
-        "src": "9.jpg",
+        "dims": "8 x 10 inches",
+        "src": "snowy-trees-on-the-harbour-kingston-on-canada.jpg",
         "master": "",
-        "price": null,
+        "aspect": [
+            8,
+            10
+        ],
+        "price": 24500,
+        "status": "available",
+        "stripe_link": "",
+        "drop": null
+    },
+    {
+        "title": "Gulf Islands Bay (Gulf Islands, BC, Canada)",
+        "year": 2026,
+        "medium": "oil on canvas board",
+        "dims": "6 x 8 inches",
+        "src": "gulf-islands-bay-gulf-islands-bc-canada.jpg",
+        "master": "",
+        "aspect": [
+            6,
+            8
+        ],
+        "price": 13500,
         "status": "available",
         "stripe_link": "",
         "drop": null
